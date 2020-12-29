@@ -10,9 +10,9 @@ const fetcher = (url, token) =>
   }).then((res) => res.json());
 
 const Index = () => {
-  const { user, logout } = useUser();
+  const { user, logout } = useUser() as any;
   const { data, error } = useSWR(
-    user ? ["/api/getFood", user?.token] : null,
+    user ? ["/api/getFood", user.token] : null,
     fetcher
   );
   if (!user) {
