@@ -56,9 +56,11 @@ const Header = (props) => {
     >
       <Flex align="center">
         <Box w="100px" color={["white", "white", "primary.500", "primary.500"]}>
-          <Text fontSize="lg" fontWeight="bold">
-            Polls
-          </Text>
+          <Link href="/">
+            <Text fontSize="lg" fontWeight="bold">
+              Twice Polls
+            </Text>
+          </Link>
         </Box>
       </Flex>
 
