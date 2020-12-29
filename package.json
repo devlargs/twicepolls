@@ -9,8 +9,10 @@
     "start": "next start"
   },
   "dependencies": {
+    "@types/next-auth": "^3.1.18",
     "babel-plugin-styled-components": "^1.11.1",
     "next": "9.5.3",
+    "next-auth": "^3.1.0",
     "react": "16.13.1",
     "react-dom": "16.13.1"
   },
