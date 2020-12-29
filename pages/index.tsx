@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import Link from "next/link";
+import { Box, Button } from "@chakra-ui/react";
 import { useUser } from "utils/auth/useUser";
 
 const fetcher = (url, token) =>
@@ -58,7 +59,10 @@ const Index = () => {
     //     <div>Loading...</div>
     //   )}
     // </div>
-    <>Signin with Chakra</>
+    <>
+      <Box m={2}>Chakra UI</Box>
+      <Button>Test Button</Button>
+    </>
   );
 };
 

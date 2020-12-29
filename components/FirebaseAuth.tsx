@@ -32,7 +32,7 @@ const FirebaseAuth = () => {
   return (
     <div>
       <StyledFirebaseAuth
-        uiConfig={firebaseAuthConfig}
+        uiConfig={firebaseAuthConfig as any}
         firebaseAuth={firebase.auth()}
       />
     </div>
