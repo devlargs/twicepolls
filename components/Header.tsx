@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Flex, Box, Button, Text } from "@chakra-ui/react";
+import { useUser } from "utils/auth/useUser";
 
 const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
+  const { user, logout } = useUser() as any;
+  console.log(user);
   return (
     <Text
       mb={{ base: isLast ? 0 : 8, sm: 0 }}

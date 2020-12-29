@@ -1,5 +1,3 @@
-import useSWR from "swr";
-import Link from "next/link";
 import {
   Box,
   Button,
@@ -9,7 +7,6 @@ import {
   Text,
   Image,
 } from "@chakra-ui/react";
-import { useUser } from "utils/auth/useUser";
 
 const fetcher = (url, token) =>
   fetch(url, {
@@ -19,8 +16,6 @@ const fetcher = (url, token) =>
   }).then((res) => res.json());
 
 const Index = () => {
-  const { user, logout } = useUser() as any;
-  console.log(user);
   // const { data, error } = useSWR(
   //   user ? ["/api/getFood", user.token] : null,
   //   fetcher
