@@ -64,7 +64,7 @@ const Header = (props) => {
         >
           <Link href="/">
             <Text fontSize="lg" fontWeight="bold" cursor="pointer">
-              Sample
+              Twice Polls
             </Text>
           </Link>
         </Box>
@@ -103,7 +103,7 @@ const Header = (props) => {
                 ],
               }}
             >
-              Signup
+              Login
             </Button>
           </MenuItem>
         </Flex>
