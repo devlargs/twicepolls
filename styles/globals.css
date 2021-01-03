@@ -14,3 +14,11 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.firebaseui-idp-google {
+  background-color: mediumvioletred !important;
+}
+
+.firebaseui-idp-google > .firebaseui-idp-text {
+  color: white !important;
+}

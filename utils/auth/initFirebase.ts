@@ -9,8 +9,6 @@ const config = {
 };
 
 export default function initFirebase() {
-  console.log(process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN);
-
   if (!firebase.apps.length) {
     firebase.initializeApp(config);
   }

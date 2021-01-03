@@ -18,12 +18,13 @@ const firebaseAuthConfig = {
       requireDisplayName: false,
     },
   ],
-  signInSuccessUrl: "/",
+  signInSuccessUrl: "/lists",
   credentialHelper: "none",
   callbacks: {
     signInSuccessWithAuthResult: async ({ user }, redirectUrl) => {
       const userData = await mapUserData(user);
       setUserCookie(userData);
+      return false;
     },
   },
 };
@@ -32,7 +33,7 @@ const FirebaseAuth = () => {
   return (
     <div>
       <StyledFirebaseAuth
-        uiConfig={firebaseAuthConfig}
+        uiConfig={firebaseAuthConfig as any}
         firebaseAuth={firebase.auth()}
       />
     </div>
