@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   Flex,
   Box,
@@ -8,6 +8,11 @@ import {
   Wrap,
   WrapItem,
   Avatar,
+  Popover,
+  PopoverContent,
+  PopoverArrow,
+  PopoverBody,
+  PopoverTrigger,
 } from "@chakra-ui/react";
 import { useUser } from "utils/auth/useUser";
 
@@ -50,6 +55,7 @@ const Header = (props) => {
   const [show, setShow] = useState(false);
   const toggleMenu = () => setShow(!show);
   const { user, logout } = useUser() as any;
+  const initialFocusRef = useRef();
   console.log(user);
 
   return (
@@ -72,7 +78,7 @@ const Header = (props) => {
         >
           <Link href="/">
             <Text fontSize="lg" fontWeight="bold" cursor="pointer">
-              Twice Poll
+              Twice Polls
             </Text>
           </Link>
         </Box>
@@ -116,11 +122,34 @@ const Header = (props) => {
               </Button>
             </MenuItem>
           ) : (
-            <Wrap>
-              <WrapItem>
-                <Avatar name="Dan Abrahmov" src={user.avatar} />
-              </WrapItem>
-            </Wrap>
+            <Popover initialFocusRef={initialFocusRef}>
+              <PopoverTrigger>
+                <Wrap>
+                  <WrapItem>
+                    <Avatar name="Dan Abrahmov" src={user.avatar} />
+                  </WrapItem>
+                </Wrap>
+              </PopoverTrigger>
+              <PopoverContent alignItems="center">
+                <PopoverArrow />
+                <PopoverBody style={{ display: "grid" }}>
+                  <Text fontSize={20}>{user.name}</Text>
+                  <div
+                    style={{
+                      height: 10,
+                    }}
+                  />
+
+                  <Button
+                    colorScheme="red"
+                    ref={initialFocusRef}
+                    onClick={logout}
+                  >
+                    Logout
+                  </Button>
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
           )}
         </Flex>
       </Box>
