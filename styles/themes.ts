@@ -12,6 +12,9 @@ const colors = {
     800: "darkblue",
     900: "darkblue",
   },
+  color: {
+    light: "white",
+  },
 };
 
 export const theme = extendTheme({ colors });

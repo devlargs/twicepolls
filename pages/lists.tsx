@@ -1,33 +1,39 @@
-import { SimpleGrid, Box } from "@chakra-ui/react";
+import { Flex, Box, Text, useBreakpointValue } from "@chakra-ui/react";
+import ListBox from "components/ListBox";
 
 const Lists = () => {
+  const h = "auto";
+  const m = 4;
+  const p = 5;
+  const w = useBreakpointValue({
+    xl: "auto",
+    lg: "auto",
+    md: "auto",
+    sm: "100%",
+    base: "100%",
+  });
+
   return (
-    <SimpleGrid columns={3} spacing={10}>
-      <Box bg="primary.500" p={5}>
-        <p style={{ color: "white" }}>
-          Who's the prettiest girl in twice?
-          <br />
-          created by: Pau lo
-        </p>
-      </Box>
-      <Box bg="primary.500" p={5}>
-        <p style={{ color: "white" }}>Who's the prettiest girl in twice?</p>
-      </Box>
-      <Box bg="primary.500" p={5}>
-        <p style={{ color: "white" }}>Who's the prettiest girl in twice?</p>
-      </Box>
-      <Box bg="primary.500" p={5}>
-        <p style={{ color: "white" }}>Who's the prettiest girl in twice?</p>
-      </Box>
-
-      <Box bg="primary.500" p={5}>
-        <p style={{ color: "white" }}>Who's the prettiest girl in twice?</p>
-      </Box>
-
-      <Box bg="primary.500" p={5}>
-        <p style={{ color: "white" }}>Who's the prettiest girl in twice?</p>
-      </Box>
-    </SimpleGrid>
+    <>
+      <Flex wrap="wrap" justifyContent="center" p={5}>
+        <ListBox w={w} h={h} text="Lorem ipsum" m={m} p={p} />
+        <ListBox
+          w={w}
+          h={h}
+          text="Lorem ipsum asdf asdf asdf asdf"
+          m={m}
+          p={p}
+        />
+        <ListBox
+          w={w}
+          h={h}
+          text="Lorem ipsum asdf asdf asdf asdf"
+          m={m}
+          p={p}
+        />
+        <ListBox w={w} h={h} text="Fuck you" m={m} p={p} />
+      </Flex>
+    </>
   );
 };
 
