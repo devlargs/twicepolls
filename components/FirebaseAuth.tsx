@@ -18,12 +18,13 @@ const firebaseAuthConfig = {
       requireDisplayName: false,
     },
   ],
-  signInSuccessUrl: "/",
+  signInSuccessUrl: "/lists",
   credentialHelper: "none",
   callbacks: {
     signInSuccessWithAuthResult: async ({ user }, redirectUrl) => {
       const userData = await mapUserData(user);
       setUserCookie(userData);
+      return false;
     },
   },
 };

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useState, useRef } from "react";
 import {
   Flex,
+  useDisclosure,
   Box,
   Button,
   Text,
@@ -15,6 +16,8 @@ import {
   PopoverTrigger,
 } from "@chakra-ui/react";
 import { useUser } from "utils/auth/useUser";
+
+import LoginModal from "./LoginModal";
 
 const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
   return (
@@ -52,108 +55,115 @@ const MenuIcon = () => (
 );
 
 const Header = (props) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [show, setShow] = useState(false);
   const toggleMenu = () => setShow(!show);
   const { user, logout } = useUser() as any;
   const initialFocusRef = useRef();
-  console.log(user);
 
   return (
-    <Flex
-      as="nav"
-      align="center"
-      justify="space-between"
-      wrap="wrap"
-      w="100%"
-      mb={0}
-      p={4}
-      bg={["primary.500", "primary.500", "transparent", "transparent"]}
-      color={["white", "white", "primary.700", "primary.700"]}
-      {...props}
-    >
-      <Flex align="center">
+    <>
+      <Flex
+        as="nav"
+        align="center"
+        justify="space-between"
+        wrap="wrap"
+        w="100%"
+        mb={0}
+        p={4}
+        bg={["primary.500", "primary.500", "transparent", "transparent"]}
+        color={["white", "white", "primary.700", "primary.700"]}
+        {...props}
+      >
+        <Flex align="center">
+          <Box
+            mw="100px"
+            color={["white", "white", "primary.500", "primary.500"]}
+          >
+            <Link href="/">
+              <Text fontSize="lg" fontWeight="bold" cursor="pointer">
+                Twice Polls
+              </Text>
+            </Link>
+          </Box>
+        </Flex>
+
+        <Box display={{ base: "block", md: "none" }} onClick={toggleMenu}>
+          {show ? <CloseIcon /> : <MenuIcon />}
+        </Box>
+
         <Box
-          mw="100px"
-          color={["white", "white", "primary.500", "primary.500"]}
+          display={{ base: show ? "block" : "none", md: "block" }}
+          flexBasis={{ base: "100%", md: "auto" }}
         >
-          <Link href="/">
-            <Text fontSize="lg" fontWeight="bold" cursor="pointer">
-              Twice Polls
-            </Text>
-          </Link>
+          <Flex
+            align="center"
+            justify={["center", "space-between", "flex-end", "flex-end"]}
+            direction={["column", "row", "row", "row"]}
+            pt={[4, 4, 0, 0]}
+          >
+            <Link href="/lists">
+              <MenuItem isLast={false}>Lists</MenuItem>
+            </Link>
+
+            {!user?.id ? (
+              <MenuItem
+                isLast={false}
+                onClick={(e: Event) => e.preventDefault()}
+              >
+                <Button
+                  onClick={onOpen}
+                  size="sm"
+                  rounded="md"
+                  color={["primary.500", "primary.500", "white", "white"]}
+                  bg={["white", "white", "primary.500", "primary.500"]}
+                  _hover={{
+                    bg: [
+                      "primary.100",
+                      "primary.100",
+                      "primary.600",
+                      "primary.600",
+                    ],
+                  }}
+                >
+                  Login
+                </Button>
+              </MenuItem>
+            ) : (
+              <Popover initialFocusRef={initialFocusRef}>
+                <PopoverTrigger>
+                  <Wrap>
+                    <WrapItem>
+                      <Avatar name="Dan Abrahmov" src={user.avatar} />
+                    </WrapItem>
+                  </Wrap>
+                </PopoverTrigger>
+                <PopoverContent alignItems="center">
+                  <PopoverArrow />
+                  <PopoverBody style={{ display: "grid" }}>
+                    <Text fontSize={20}>{user.name}</Text>
+                    <div
+                      style={{
+                        height: 10,
+                      }}
+                    />
+
+                    <Button
+                      colorScheme="red"
+                      ref={initialFocusRef}
+                      onClick={logout}
+                    >
+                      Logout
+                    </Button>
+                  </PopoverBody>
+                </PopoverContent>
+              </Popover>
+            )}
+          </Flex>
         </Box>
       </Flex>
-
-      <Box display={{ base: "block", md: "none" }} onClick={toggleMenu}>
-        {show ? <CloseIcon /> : <MenuIcon />}
-      </Box>
-
-      <Box
-        display={{ base: show ? "block" : "none", md: "block" }}
-        flexBasis={{ base: "100%", md: "auto" }}
-      >
-        <Flex
-          align="center"
-          justify={["center", "space-between", "flex-end", "flex-end"]}
-          direction={["column", "row", "row", "row"]}
-          pt={[4, 4, 0, 0]}
-        >
-          <Link href="/lists">
-            <MenuItem isLast={false}>Lists</MenuItem>
-          </Link>
-
-          {!user?.id ? (
-            <MenuItem isLast={false} onClick={(e: Event) => e.preventDefault()}>
-              <Button
-                size="sm"
-                rounded="md"
-                color={["primary.500", "primary.500", "white", "white"]}
-                bg={["white", "white", "primary.500", "primary.500"]}
-                _hover={{
-                  bg: [
-                    "primary.100",
-                    "primary.100",
-                    "primary.600",
-                    "primary.600",
-                  ],
-                }}
-              >
-                Login
-              </Button>
-            </MenuItem>
-          ) : (
-            <Popover initialFocusRef={initialFocusRef}>
-              <PopoverTrigger>
-                <Wrap>
-                  <WrapItem>
-                    <Avatar name="Dan Abrahmov" src={user.avatar} />
-                  </WrapItem>
-                </Wrap>
-              </PopoverTrigger>
-              <PopoverContent alignItems="center">
-                <PopoverArrow />
-                <PopoverBody style={{ display: "grid" }}>
-                  <Text fontSize={20}>{user.name}</Text>
-                  <div
-                    style={{
-                      height: 10,
-                    }}
-                  />
-
-                  <Button
-                    colorScheme="red"
-                    ref={initialFocusRef}
-                    onClick={logout}
-                  >
-                    Logout
-                  </Button>
-                </PopoverBody>
-              </PopoverContent>
-            </Popover>
-          )}
-        </Flex>
-      </Box>
-    </Flex>
+      <LoginModal isOpen={isOpen} onClose={onClose} />
+    </>
   );
 };
 
