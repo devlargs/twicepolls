@@ -18,6 +18,10 @@ const ListBox = ({ w, h, m, p, text }: Props) => {
       color="color.light"
       m={m}
       p={p}
+      borderTopLeftRadius={23}
+      borderBottomRightRadius={23}
+      borderTopRightRadius={7}
+      borderBottomLeftRadius={7}
     >
       <Text fontSize="20px">{text}</Text>
     </Box>

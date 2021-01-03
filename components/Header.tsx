@@ -1,11 +1,17 @@
 import Link from "next/link";
 import { useState } from "react";
-import { Flex, Box, Button, Text } from "@chakra-ui/react";
+import {
+  Flex,
+  Box,
+  Button,
+  Text,
+  Wrap,
+  WrapItem,
+  Avatar,
+} from "@chakra-ui/react";
 import { useUser } from "utils/auth/useUser";
 
 const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
-  const { user, logout } = useUser() as any;
-  console.log(user);
   return (
     <Text
       mb={{ base: isLast ? 0 : 8, sm: 0 }}
@@ -43,6 +49,8 @@ const MenuIcon = () => (
 const Header = (props) => {
   const [show, setShow] = useState(false);
   const toggleMenu = () => setShow(!show);
+  const { user, logout } = useUser() as any;
+  console.log(user);
 
   return (
     <Flex
@@ -64,7 +72,7 @@ const Header = (props) => {
         >
           <Link href="/">
             <Text fontSize="lg" fontWeight="bold" cursor="pointer">
-              Twice Polls
+              Twice Poll
             </Text>
           </Link>
         </Box>
@@ -88,24 +96,32 @@ const Header = (props) => {
             <MenuItem isLast={false}>Lists</MenuItem>
           </Link>
 
-          <MenuItem isLast={false} onClick={(e: Event) => e.preventDefault()}>
-            <Button
-              size="sm"
-              rounded="md"
-              color={["primary.500", "primary.500", "white", "white"]}
-              bg={["white", "white", "primary.500", "primary.500"]}
-              _hover={{
-                bg: [
-                  "primary.100",
-                  "primary.100",
-                  "primary.600",
-                  "primary.600",
-                ],
-              }}
-            >
-              Login
-            </Button>
-          </MenuItem>
+          {!user?.id ? (
+            <MenuItem isLast={false} onClick={(e: Event) => e.preventDefault()}>
+              <Button
+                size="sm"
+                rounded="md"
+                color={["primary.500", "primary.500", "white", "white"]}
+                bg={["white", "white", "primary.500", "primary.500"]}
+                _hover={{
+                  bg: [
+                    "primary.100",
+                    "primary.100",
+                    "primary.600",
+                    "primary.600",
+                  ],
+                }}
+              >
+                Login
+              </Button>
+            </MenuItem>
+          ) : (
+            <Wrap>
+              <WrapItem>
+                <Avatar name="Dan Abrahmov" src={user.avatar} />
+              </WrapItem>
+            </Wrap>
+          )}
         </Flex>
       </Box>
     </Flex>
