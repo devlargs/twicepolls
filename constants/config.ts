@@ -3,6 +3,8 @@ import { loremIpsum, LoremIpsum } from "lorem-ipsum";
 
 const local = isLocalhost();
 
+console.log(local);
+
 export default {
   appTitle: local
     ? new LoremIpsum().generateWords(1).toUpperCase()
