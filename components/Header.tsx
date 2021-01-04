@@ -16,7 +16,7 @@ import {
   PopoverTrigger,
 } from "@chakra-ui/react";
 import { useUser } from "utils/auth/useUser";
-
+import CONFIG from "constants/config";
 import LoginModal from "./LoginModal";
 
 const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
@@ -82,7 +82,7 @@ const Header = (props) => {
           >
             <Link href="/">
               <Text fontSize="lg" fontWeight="bold" cursor="pointer">
-                Twice Polls
+                {CONFIG.appTitle}
               </Text>
             </Link>
           </Box>

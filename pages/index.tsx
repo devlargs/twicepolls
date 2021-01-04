@@ -1,12 +1,5 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Stack,
-  Heading,
-  Text,
-  Image,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Stack, Heading, Image } from "@chakra-ui/react";
+import CONFIG from "constants/config";
 
 const fetcher = (url, token) =>
   fetch(url, {
@@ -84,7 +77,7 @@ const Index = () => {
             color="primary.800"
             textAlign={["center", "center", "left", "left"]}
           >
-            Twice Polls
+            {CONFIG.appTitle}
           </Heading>
           <Heading
             as="h2"
@@ -95,7 +88,7 @@ const Index = () => {
             lineHeight={1.5}
             textAlign={["center", "center", "left", "left"]}
           >
-            Unofficial Fan Voting Site for Onces
+            {CONFIG.home.subtitle}
           </Heading>
           <a>
             <Button
@@ -112,7 +105,7 @@ const Index = () => {
         </Stack>
         <Box w={{ base: "80%", sm: "60%", md: "50%" }} mb={{ base: 12, md: 0 }}>
           <Image
-            src="https://0.soompi.io/wp-content/uploads/2017/04/28061756/TWICE3.jpg?s=900x600&e=t"
+            src={CONFIG.home.img}
             size="100%"
             rounded="1rem"
             shadow="2xl"
