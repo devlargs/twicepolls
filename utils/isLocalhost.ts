@@ -1,5 +1,6 @@
 export default () => () => {
   if (typeof window !== "undefined") {
+    console.log(process.env.NODE_ENV, "node - env");
     return process.env.NODE_ENV === "development";
   } else {
     return (
