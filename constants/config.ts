@@ -16,7 +16,12 @@ const bg = () => {
 
 export default {
   appTitle: local
-    ? new LoremIpsum().generateWords(1).toUpperCase()
+    ? new LoremIpsum()
+        .generateWords(4)
+        .split(" ")
+        .join("")
+        .toUpperCase()
+        .substr(0, 10)
     : "Twice Polls",
   home: {
     img: local
