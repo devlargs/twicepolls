@@ -147,16 +147,22 @@ const Header = (props) => {
                 </PopoverTrigger>
                 <PopoverContent alignItems="center">
                   <PopoverArrow />
+                  <Text fontSize="1xl" p={4}>
+                    Logged in as: <b>{user.email}</b>
+                  </Text>
                   <PopoverBody style={{ display: "grid" }}>
-                    <Text fontSize={20}>{user.name}</Text>
-                    <div
-                      style={{
-                        height: 10,
-                      }}
-                    />
+                    <Button
+                      // colorScheme="red"
+                      backgroundColor="darkcyan"
+                      color="white"
+                    >
+                      Profile
+                    </Button>
 
                     <Button
-                      colorScheme="red"
+                      mt={2}
+                      background="darkviolet"
+                      color="white"
                       ref={initialFocusRef}
                       onClick={logout}
                     >

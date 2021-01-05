@@ -1,7 +1,5 @@
-import { useEffect } from "react";
-import { Flex, useBreakpointValue, Spinner } from "@chakra-ui/react";
+import { Flex, useBreakpointValue, Spinner, Text, Box } from "@chakra-ui/react";
 import ListBox from "components/ListBox";
-import keyBy from "utils/lodash/keyBy";
 import { get } from "utils/queries/get";
 
 const Lists = () => {
@@ -60,25 +58,32 @@ const Lists = () => {
 
   return (
     <>
+      <Box w={"100%"} textAlign="center">
+        <Text fontSize="4xl" mb={0}>
+          List of Polls
+        </Text>
+      </Box>
       <Flex wrap="wrap" justifyContent="center" p={5}>
         {loading ? (
           <Spinner />
         ) : (
           <>
             {lists.length ? (
-              lists.map((q) => {
-                return (
-                  <ListBox
-                    key={q.id}
-                    id={q.id}
-                    w={w}
-                    h={h}
-                    text={q.question}
-                    m={m}
-                    p={p}
-                  />
-                );
-              })
+              <>
+                {lists.map((q) => {
+                  return (
+                    <ListBox
+                      key={q.id}
+                      id={q.id}
+                      w={w}
+                      h={h}
+                      text={q.question}
+                      m={m}
+                      p={p}
+                    />
+                  );
+                })}
+              </>
             ) : (
               <>No data yet.</>
             )}

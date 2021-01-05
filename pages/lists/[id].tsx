@@ -13,7 +13,9 @@ const ListById = () => {
 
   return (
     <Box ml="20vw" mr="20vw">
-      <Text fontSize="3xl">{title}</Text>
+      <Text color="primary.500" fontSize="3xl">
+        {title}
+      </Text>
     </Box>
   );
 };
