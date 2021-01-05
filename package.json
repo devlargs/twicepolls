@@ -13,6 +13,8 @@
     "@chakra-ui/react": "^1.1.0",
     "@emotion/react": "^11.1.4",
     "@emotion/styled": "^11.0.0",
+    "@reduxjs/toolkit": "^1.5.0",
+    "@types/react-redux": "^7.1.15",
     "babel-plugin-styled-components": "^1.11.1",
     "firebase": "^8.2.1",
     "firebase-admin": "^9.4.2",
@@ -25,6 +27,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-firebaseui": "^4.1.0",
+    "react-redux": "^7.2.2",
     "swr": "^0.3.11"
   },
   "devDependencies": {

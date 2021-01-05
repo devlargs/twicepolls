@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
+import { usePolls } from "store/pollsState";
 import getFirestoreCollection from "utils/auth/getFirestoreCollection";
 
 const get = (collection: string) => {
+  const { setLoading, setLists, lists, loading } = usePolls();
   const db = getFirestoreCollection(collection);
-  const [loading, setLoading] = useState(false);
-  const [lists, setLists] = useState([]);
 
   useEffect(() => {
     setLoading(true);

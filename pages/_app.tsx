@@ -7,6 +7,8 @@ import SVG from "constants/svgBackgrounds";
 import NProgress from "nprogress";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { Provider as ReduxProvider } from "react-redux";
+import store from "store";
 
 const App = ({ Component, pageProps }) => {
   const router = useRouter();
@@ -28,20 +30,22 @@ const App = ({ Component, pageProps }) => {
   }, []);
 
   return (
-    <Box
-      style={{
-        backgroundColor: "#eeeeee",
-        backgroundImage: `url("${SVG.checkered}")`,
-        backgroundAttachment: "fixed",
-        backgroundSize: "cover",
-        minHeight: "100vh",
-      }}
-    >
-      <ChakraProvider theme={theme}>
-        <Header />
-        <Component {...pageProps} />
-      </ChakraProvider>
-    </Box>
+    <ReduxProvider store={store}>
+      <Box
+        style={{
+          backgroundColor: "#eeeeee",
+          backgroundImage: `url("${SVG.checkered}")`,
+          backgroundAttachment: "fixed",
+          backgroundSize: "cover",
+          minHeight: "100vh",
+        }}
+      >
+        <ChakraProvider theme={theme}>
+          <Header />
+          <Component {...pageProps} />
+        </ChakraProvider>
+      </Box>
+    </ReduxProvider>
   );
 };
 
