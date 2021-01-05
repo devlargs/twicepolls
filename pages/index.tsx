@@ -6,7 +6,7 @@ import Link from "next/link";
 const Index = () => (
   <>
     <SEO title={CONFIG.appTitle} />
-    <Box ml="20vw" mr="20vw">
+    <Box>
       <Flex
         align="center"
         justify={{ base: "center", md: "space-around", xl: "space-between" }}

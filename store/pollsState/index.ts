@@ -7,7 +7,7 @@ import getFirestoreCollection from "utils/auth/getFirestoreCollection";
 const db = getFirestoreCollection("polls");
 
 const initialState = {
-  loading: false,
+  loading: true,
   data: [],
 };
 
@@ -49,8 +49,6 @@ export const usePolls = () => {
 
     return () => unsubscribe();
   }, []);
-
-  //
 
   return {
     lists: useSelector((state: StoreProps) => state.polls.data),
