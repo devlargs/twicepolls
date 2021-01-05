@@ -3,4 +3,5 @@ node_modules
 .next
 .env-prev
 firebase-debug.log
+firestore-debug.log
 firestore.rules

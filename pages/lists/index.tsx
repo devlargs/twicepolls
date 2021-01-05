@@ -1,18 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Flex, useBreakpointValue, Spinner } from "@chakra-ui/react";
 import ListBox from "components/ListBox";
-import initFirebase from "utils/auth/initFirebase";
-import firebase from "firebase/app";
 import keyBy from "utils/lodash/keyBy";
-
-initFirebase();
-
-const db = firebase.firestore();
-const polls = db.collection("polls");
+import { get } from "utils/queries/get";
 
 const Lists = () => {
-  const [lists, setLists] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const { lists, loading } = get("polls");
+
   const h = "auto";
   const m = 4;
   const p = 5;
@@ -43,26 +37,26 @@ const Lists = () => {
   // });
   // }, [lists]);
 
-  useEffect(() => {
-    setLoading(true);
-    polls
-      .get()
-      .then((snapshot) => {
-        const temp = [];
-        snapshot.docs.forEach((doc) => {
-          temp.push({
-            ...doc.data(),
-            id: doc.id,
-          });
-        });
-        setLists(temp);
-        setLoading(false);
-      })
-      .catch((e) => {
-        setLoading(false);
-        console.log(e);
-      });
-  }, []);
+  // useEffect(() => {
+  // setLoading(true);
+  // polls
+  //   .get()
+  //   .then((snapshot) => {
+  //     const temp = [];
+  //     snapshot.docs.forEach((doc) => {
+  //       temp.push({
+  //         ...doc.data(),
+  //         id: doc.id,
+  //       });
+  //     });
+  //     setLists(temp);
+  //     setLoading(false);
+  //   })
+  //   .catch((e) => {
+  //     setLoading(false);
+  //     console.log(e);
+  //   });
+  // }, []);
 
   return (
     <>
@@ -71,11 +65,23 @@ const Lists = () => {
           <Spinner />
         ) : (
           <>
-            {lists.map((q) => {
-              return (
-                <ListBox key={q.id} w={w} h={h} text={q.question} m={m} p={p} />
-              );
-            })}
+            {lists.length ? (
+              lists.map((q) => {
+                return (
+                  <ListBox
+                    key={q.id}
+                    id={q.id}
+                    w={w}
+                    h={h}
+                    text={q.question}
+                    m={m}
+                    p={p}
+                  />
+                );
+              })
+            ) : (
+              <>No data yet.</>
+            )}
           </>
         )}
       </Flex>
