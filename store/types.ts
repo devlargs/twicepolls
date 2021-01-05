@@ -3,6 +3,7 @@ export type StoreProps = {
     loading: boolean;
     data: Array<{
       question: string;
+      id?: string;
     }>;
   };
 };
