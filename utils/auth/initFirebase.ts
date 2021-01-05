@@ -12,5 +12,13 @@ const config = {
 export default function initFirebase() {
   if (!firebase.apps.length) {
     firebase.initializeApp(config);
+    firebase.firestore.setLogLevel("silent");
+
+    // if (process.env.NODE_ENV === "development") {
+    //   firebase.firestore().settings({
+    //     host: "localhost:8080",
+    //     ssl: false,
+    //   });
+    // }
   }
 }

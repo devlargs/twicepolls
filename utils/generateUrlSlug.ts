@@ -1,5 +1,5 @@
 const generateSlug = (str: string, id?: string) => {
-  return `${str.split(" ").join("-").toLowerCase()}${id && `-${id}`}`;
+  return `${str.split(" ").join("-")}${id && `-${id}`}`;
 };
 
 export default generateSlug;
