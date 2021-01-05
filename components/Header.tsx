@@ -141,7 +141,7 @@ const Header = (props) => {
                 <PopoverTrigger>
                   <Wrap>
                     <WrapItem>
-                      <Avatar name="Dan Abrahmov" src={user.avatar} />
+                      <Avatar name={user.name} src={user.avatar} />
                     </WrapItem>
                   </Wrap>
                 </PopoverTrigger>

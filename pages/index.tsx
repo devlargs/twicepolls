@@ -53,7 +53,7 @@ const Index = () => (
           </Link>
         </a>
       </Stack>
-      <Box w={{ base: "80%", sm: "60%", md: "50%" }} mb={{ base: 12, md: 0 }}>
+      <Box w={{ base: "80%", sm: "100%", md: "50%" }} mb={{ base: 12, md: 0 }}>
         <Image src={CONFIG.home.img} size="100%" rounded="1rem" shadow="2xl" />
       </Box>
     </Flex>
