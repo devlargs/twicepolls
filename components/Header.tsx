@@ -70,7 +70,10 @@ const Header = (props) => {
         wrap="wrap"
         w="100%"
         mb={0}
-        p={4}
+        pr={10}
+        pl={10}
+        pt={4}
+        pb={4}
         bg={["primary.500", "primary.500", "transparent", "transparent"]}
         color={["white", "white", "primary.700", "primary.700"]}
         {...props}
@@ -104,6 +107,10 @@ const Header = (props) => {
           >
             <Link href="/lists">
               <MenuItem isLast={false}>Lists</MenuItem>
+            </Link>
+
+            <Link href="/blog">
+              <MenuItem isLast={false}>Blog</MenuItem>
             </Link>
 
             {!user?.id ? (
