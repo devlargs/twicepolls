@@ -1,6 +1,8 @@
 import { Box, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
+import SEO from "components/SEO";
+import config from "constants/config";
 
 const ListById = () => {
   const router = useRouter();
@@ -12,11 +14,14 @@ const ListById = () => {
   }, [router.query.id]);
 
   return (
-    <Box ml="20vw" mr="20vw">
-      <Text color="primary.500" fontSize="3xl">
-        {title}
-      </Text>
-    </Box>
+    <>
+      <SEO title={`${title} | ${config.appTitle}`} />
+      <Box ml="20vw" mr="20vw">
+        <Text color="primary.500" fontSize="3xl">
+          {title}
+        </Text>
+      </Box>
+    </>
   );
 };
 

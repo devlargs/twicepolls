@@ -1,5 +1,7 @@
 import { Flex, useBreakpointValue, Spinner, Text, Box } from "@chakra-ui/react";
 import ListBox from "components/ListBox";
+import SEO from "components/SEO";
+import config from "constants/config";
 import { get } from "utils/queries/get";
 
 const Lists = () => {
@@ -58,6 +60,7 @@ const Lists = () => {
 
   return (
     <>
+      <SEO title={`Listing Page | ${config.appTitle}`} />
       <Box w={"100%"} textAlign="center">
         <Text fontSize="4xl" mb={0}>
           List of Polls
