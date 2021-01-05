@@ -42,6 +42,7 @@ const App = ({ Component, pageProps }) => {
       >
         <ChakraProvider theme={theme}>
           <Header />
+          <Box h={4} />
           <Component {...pageProps} />
         </ChakraProvider>
       </Box>

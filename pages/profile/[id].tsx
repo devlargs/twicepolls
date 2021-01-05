@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 
 const ProfileById = () => {
   const router = useRouter();
+
   return (
     <>
       {/* change the profile to username later on */}
