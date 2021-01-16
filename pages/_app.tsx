@@ -1,7 +1,8 @@
+import "tailwindcss/tailwind.css";
+import "styles/globals.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
 import { theme } from "styles/themes";
-import "styles/globals.css";
 import Header from "components/Header";
 import SVG from "constants/svgBackgrounds";
 import NProgress from "nprogress";
