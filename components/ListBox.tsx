@@ -13,7 +13,7 @@ type Props = {
 
 const ListBox = ({ w, h, m, p, text, id }: Props) => {
   return (
-    <Link href={`/lists/${generateSlug(text, id)}`}>
+    <Link href={`/polls/${generateSlug(text, id)}`}>
       <Box
         cursor="pointer"
         w={w}

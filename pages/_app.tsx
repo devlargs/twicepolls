@@ -1,10 +1,7 @@
 import "tailwindcss/tailwind.css";
 import "styles/globals.css";
-import { ChakraProvider } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
-import { theme } from "styles/themes";
 import Header from "components/Header";
-import SVG from "constants/svgBackgrounds";
 import NProgress from "nprogress";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
@@ -32,21 +29,11 @@ const App = ({ Component, pageProps }) => {
 
   return (
     <ReduxProvider store={store}>
-      <Box
-        style={{
-          backgroundColor: "#eeeeee",
-          backgroundImage: `url("${SVG.checkered}")`,
-          backgroundAttachment: "fixed",
-          backgroundSize: "cover",
-          minHeight: "100vh",
-        }}
-      >
-        <ChakraProvider theme={theme}>
-          <Header />
-          <Box h={4} />
-          <Component {...pageProps} />
-        </ChakraProvider>
-      </Box>
+      <>
+        <Header />
+        <Box h={4} />
+        <Component {...pageProps} />
+      </>
     </ReduxProvider>
   );
 };
