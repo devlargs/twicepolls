@@ -1,11 +1,18 @@
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useUser } from "utils/auth/useUser";
+import { useHover } from "react-hookedup";
 import { Mobile } from "./Nav";
 
 const Header = () => {
   const { logout, user } = useUser();
-
+  const { hovered, bind } = useHover();
+  const [menuVisibility, setMenuVisibility] = useState(false);
   console.log(user);
+
+  useEffect(() => {
+    setMenuVisibility(hovered);
+  }, [hovered, setMenuVisibility]);
 
   return (
     <nav className="bg-white shadow">
@@ -89,7 +96,7 @@ const Header = () => {
             </div>
 
             <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
-              <div className="ml-3 relative">
+              <div className="ml-3 relative" {...bind}>
                 <div>
                   <button
                     className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -105,34 +112,36 @@ const Header = () => {
                   </button>
                 </div>
 
-                <div
-                  className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 z-10"
-                  role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="user-menu"
-                >
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    role="menuitem"
+                {menuVisibility && (
+                  <div
+                    className="origin-top-right absolute right-0 mt-0 ml-5 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 z-10"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="user-menu"
                   >
-                    Your Profile
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    role="menuitem"
-                  >
-                    Settings
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    role="menuitem"
-                  >
-                    Sign out
-                  </a>
-                </div>
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      role="menuitem"
+                    >
+                      Your Profile
+                    </a>
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      role="menuitem"
+                    >
+                      Settings
+                    </a>
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      role="menuitem"
+                    >
+                      Sign out
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           </div>
