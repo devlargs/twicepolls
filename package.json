@@ -4,7 +4,7 @@
   "private": true,
   "author": "Ralph Largo",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
     "import:db": "firebase emulators:start --import @localdb",

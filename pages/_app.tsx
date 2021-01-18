@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { Provider as ReduxProvider } from "react-redux";
 import store from "store";
+import Footer from "components/Footer";
 
 const App = ({ Component, pageProps }) => {
   const router = useRouter();
@@ -33,6 +34,7 @@ const App = ({ Component, pageProps }) => {
         <Header />
         <Box h={4} />
         <Component {...pageProps} />
+        <Footer />
       </>
     </ReduxProvider>
   );
