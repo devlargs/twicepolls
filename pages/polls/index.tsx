@@ -1,17 +1,14 @@
 import SEO from "components/SEO";
 import config from "constants/config";
-import { usePolls } from "store/pollsState";
 
 const Lists = () => {
-  const { lists, loading } = usePolls();
-
   return (
-    <>
-      <SEO title={`Listing Page | ${config.appTitle}`} />
+    <div className="bg-white">
+      <SEO title={`Polls Lists | ${config.appTitle}`} />
 
-      <div className="relative bg-gray-50 pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
+      <div className="relative pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
         <div className="absolute inset-0">
-          <div className="bg-white h-1/3 sm:h-2/3"></div>
+          <div className=" h-1/3 sm:h-2/3"></div>
         </div>
         <div className="relative max-w-7xl mx-auto">
           <div className="text-center">
@@ -186,45 +183,7 @@ const Lists = () => {
           </div>
         </div>
       </div>
-
-      {/* <Box w={"100%"} textAlign="center">
-        <Text fontSize="4xl" mb={0}>
-          List of Polls
-        </Text>
-      </Box>
-      <Flex wrap="wrap" justifyContent="center" p={5}>
-        {loading ? (
-          <Spinner />
-        ) : (
-          <>
-            {lists.length ? (
-              <>
-                {lists.map((q) => {
-                  if (q.question) {
-                    return (
-                      <ListBox
-                        key={q.id}
-                        id={q.id}
-                        w={w}
-                        h={h}
-                        text={q.question}
-                        m={m}
-                        p={p}
-                      />
-                    );
-                  } else {
-                    return null;
-                  }
-                })}
-              </>
-            ) : (
-              <>No data yet.</>
-            )}
-          </>
-        )}
-      </Flex>
-     */}
-    </>
+    </div>
   );
 };
 

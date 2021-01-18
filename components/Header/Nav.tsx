@@ -1,18 +1,18 @@
+import Link from "next/link";
+
 export const Mobile = () => (
   <div className="hidden md:hidden">
     <div className="pt-2 pb-3 space-y-1">
-      <a
-        href="#"
-        className="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
-      >
-        Home
-      </a>
-      <a
-        href="#"
-        className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
-      >
-        Polls
-      </a>
+      <Link href="/">
+        <a className="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6">
+          Home
+        </a>
+      </Link>
+      <Link href="/polls">
+        <a className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6">
+          Polls
+        </a>
+      </Link>
     </div>
     <div className="pt-4 pb-3 border-t border-gray-200">
       <div className="flex items-center px-4 sm:px-6">
@@ -40,9 +40,9 @@ export const Mobile = () => (
             aria-hidden="true"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
             />
           </svg>

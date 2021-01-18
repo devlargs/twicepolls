@@ -1,6 +1,12 @@
+import Link from "next/link";
+import { useUser } from "utils/auth/useUser";
 import { Mobile } from "./Nav";
 
 const Header = () => {
+  const { logout, user } = useUser();
+
+  console.log(user);
+
   return (
     <nav className="bg-white shadow">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -22,9 +28,9 @@ const Header = () => {
                   aria-hidden="true"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M4 6h16M4 12h16M4 18h16"
                   />
                 </svg>
@@ -38,9 +44,9 @@ const Header = () => {
                   aria-hidden="true"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M6 18L18 6M6 6l12 12"
                   />
                 </svg>
@@ -49,13 +55,13 @@ const Header = () => {
             <div className="flex-shrink-0 flex items-center">
               <img
                 className="block lg:hidden h-8 w-auto"
-                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                alt="Workflow"
+                src="https://freepngimg.com/download/logo/92693-kpop-jyp-entertainment-twice-black-circle.png"
+                alt="TwicePolls"
               />
               <img
                 className="hidden lg:block h-8 w-auto"
-                src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
-                alt="Workflow"
+                src="https://freepngimg.com/download/logo/92693-kpop-jyp-entertainment-twice-black-circle.png"
+                alt="TwicePolls"
               />
             </div>
             <div className="hidden md:ml-6 md:flex md:space-x-8">
@@ -65,12 +71,11 @@ const Header = () => {
               >
                 Home
               </a>
-              <a
-                href="#"
-                className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-              >
-                Polls
-              </a>
+              <Link href="/polls">
+                <a className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                  Polls
+                </a>
+              </Link>
             </div>
           </div>
           <div className="flex items-center">
@@ -82,6 +87,7 @@ const Header = () => {
                 <span>Login to Vote</span>
               </button>
             </div>
+
             <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
               <div className="ml-3 relative">
                 <div>
