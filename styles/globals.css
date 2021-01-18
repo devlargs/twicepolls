@@ -15,13 +15,13 @@ a {
   box-sizing: border-box;
 }
 
-.firebaseui-idp-google {
+/* .firebaseui-idp-google {
   background-color: mediumvioletred !important;
-}
+} */
 
-.firebaseui-idp-google > .firebaseui-idp-text {
+/* .firebaseui-idp-google > .firebaseui-idp-text {
   color: white !important;
-}
+} */
 
 #nprogress {
   pointer-events: none;
