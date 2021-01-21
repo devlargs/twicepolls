@@ -31,18 +31,26 @@ export default class MyDocument extends Document {
           <script
             dangerouslySetInnerHTML={{
               __html: `
-                if (!(
-                    location.hostname === "localhost" || 
-                    location.hostname === "127.0.0.1" || 
-                    location.hostname.includes("192.168")
-                    )) 
-                {
-                  console.log("google analytics is connected")
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', 'UA-186479295-1');
-                }
+              const urlParams = new URLSearchParams(window.location.search);
+              const bool = urlParams.get('me');
+              let me;
+
+              if (bool && (bool === 'true' || bool === 'false')) {
+                me = JSON.parse(bool);
+              }
+
+              if (!(
+                  location.hostname === "localhost" || 
+                  location.hostname === "127.0.0.1" || 
+                  location.hostname.includes("192.168")
+                  ) && !me) 
+              {
+                console.log("google analytics is connected")
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'UA-186479295-1');
+              }
               `,
             }}
           />
