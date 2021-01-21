@@ -13,8 +13,6 @@ const Header = () => {
   const [modalVisibility, setModalVisibility] = useState(false);
   const { pathname } = useRouter();
 
-  console.log(pathname);
-
   useEffect(() => {
     setMenuVisibility(hovered);
   }, [hovered, setMenuVisibility]);
