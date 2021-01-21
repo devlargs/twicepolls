@@ -16,6 +16,8 @@
     "@emotion/react": "^11.1.4",
     "@emotion/styled": "^11.0.0",
     "@reduxjs/toolkit": "^1.5.0",
+    "@sentry/react": "^6.0.1",
+    "@sentry/tracing": "^6.0.1",
     "@tailwindcss/postcss7-compat": "^2.0.2",
     "@types/react-redux": "^7.1.15",
     "autoprefixer": "^9.8.6",
