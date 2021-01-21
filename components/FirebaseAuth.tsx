@@ -21,7 +21,7 @@ const firebaseAuthConfig = {
   signInSuccessUrl: "/polls",
   credentialHelper: "none",
   callbacks: {
-    signInSuccessWithAuthResult: async ({ user }, redirectUrl) => {
+    signInSuccessWithAuthResult: async ({ user }) => {
       const userData = await mapUserData(user);
       setUserCookie(userData);
       return false;

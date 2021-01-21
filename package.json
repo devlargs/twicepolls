@@ -1,8 +1,9 @@
 {
-  "name": "nextjs-typescript-starter",
+  "name": "twice-polls",
   "version": "0.1.0",
   "private": true,
   "author": "Ralph Largo",
+  "description": "Unofficial twice fans (onces) voting app made with nextjs, tailwind and firestore",
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build",

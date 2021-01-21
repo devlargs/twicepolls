@@ -1,4 +1,4 @@
-import { Box, Container, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 export default function FourOhFour() {
   return (

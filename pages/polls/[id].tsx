@@ -1,8 +1,9 @@
-import { Box, Text, useBreakpointValue } from "@chakra-ui/react";
 import SEO from "components/SEO";
 import config from "constants/config";
 
 const ListById = ({ id, title }) => {
+  console.log(id);
+
   return (
     <>
       <SEO title={`${title} | ${config.appTitle}`} />
