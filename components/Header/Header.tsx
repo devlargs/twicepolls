@@ -4,16 +4,25 @@ import { useUser } from "utils/auth/useUser";
 import { useHover } from "react-hookedup";
 import { Mobile } from "./Nav";
 import LoginModal from "components/LoginModal";
+import { useRouter } from "next/router";
 
 const Header = () => {
   const { logout, user } = useUser();
   const { hovered, bind } = useHover();
   const [menuVisibility, setMenuVisibility] = useState(false);
   const [modalVisibility, setModalVisibility] = useState(false);
+  const { pathname } = useRouter();
+
+  console.log(pathname);
 
   useEffect(() => {
     setMenuVisibility(hovered);
   }, [hovered, setMenuVisibility]);
+
+  const getHeaderClass = (path: string) =>
+    pathname === path
+      ? "border-b-2 border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium"
+      : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium";
 
   return (
     <>
@@ -75,17 +84,10 @@ const Header = () => {
               </div>
               <div className="hidden md:ml-6 md:flex md:space-x-8">
                 <Link href="/">
-                  <a
-                    href="#"
-                    className="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                  >
-                    Home
-                  </a>
+                  <a className={getHeaderClass("/")}>Home</a>
                 </Link>
                 <Link href="/polls">
-                  <a className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                    Polls
-                  </a>
+                  <a className={getHeaderClass("/polls")}>Polls</a>
                 </Link>
               </div>
             </div>
@@ -97,7 +99,7 @@ const Header = () => {
                     type="button"
                     className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
-                    <span>Login to Vote</span>
+                    <span>Login</span>
                   </button>
                 ) : (
                   <>{user.name}</>
