@@ -58,10 +58,10 @@ export default class MyDocument extends Document {
               }
 
               if (!(
-                  location.hostname === "localhost" || 
-                  location.hostname === "127.0.0.1" || 
+                  location.hostname === "localhost" ||
+                  location.hostname === "127.0.0.1" ||
                   location.hostname.includes("192.168")
-                  ) && !me) 
+                  ) && !me)
               {
                 console.log("google analytics is connected")
                 window.dataLayer = window.dataLayer || [];
@@ -78,10 +78,10 @@ export default class MyDocument extends Document {
             dangerouslySetInnerHTML={{
               __html: `
                 if (!(
-                    location.hostname === "localhost" || 
-                    location.hostname === "127.0.0.1" || 
+                    location.hostname === "localhost" ||
+                    location.hostname === "127.0.0.1" ||
                     location.hostname.includes("192.168")
-                    )) 
+                    ))
                 {
                     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
                     (function(){
