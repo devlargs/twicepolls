@@ -1,10 +1,11 @@
 {
-  "name": "nextjs-typescript-starter",
+  "name": "twice-polls",
   "version": "0.1.0",
   "private": true,
   "author": "Ralph Largo",
+  "description": "Unofficial twice fans (onces) voting app made with nextjs, tailwind and firestore",
   "scripts": {
-    "dev": "npm run import:db && next dev",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
     "import:db": "firebase emulators:start --import @localdb",
@@ -12,29 +13,37 @@
     "stopall": "lsof -t -i:2000 -i:6001 -i:9080 -i:8086 -i:9099 | xargs kill -9"
   },
   "dependencies": {
-    "@chakra-ui/react": "^1.1.0",
     "@emotion/react": "^11.1.4",
     "@emotion/styled": "^11.0.0",
     "@reduxjs/toolkit": "^1.5.0",
+    "@sentry/react": "^6.0.1",
+    "@sentry/tracing": "^6.0.1",
+    "@tailwindcss/postcss7-compat": "^2.0.2",
     "@types/react-redux": "^7.1.15",
+    "@types/styled-components": "^5.1.7",
+    "autoprefixer": "^9.8.6",
     "babel-plugin-styled-components": "^1.11.1",
     "firebase": "^8.2.1",
     "firebase-admin": "^9.4.2",
     "firebase-functions": "^3.13.0",
     "framer-motion": "^3.1.1",
     "js-cookie": "^2.2.1",
-    "lorem-ipsum": "^2.0.3",
     "next": "9.5.3",
     "nprogress": "^0.2.0",
+    "postcss": "^7.0.35",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-firebaseui": "^4.1.0",
+    "react-hookedup": "^0.1.2",
     "react-redux": "^7.2.2",
-    "swr": "^0.3.11"
+    "styled-components": "^5.2.1",
+    "swr": "^0.3.11",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2"
   },
   "devDependencies": {
     "@types/node": "^14.11.2",
     "@types/react": "^16.9.50",
+    "postcss-preset-env": "^6.7.0",
     "typescript": "^4.0.3"
   }
 }

@@ -7,6 +7,7 @@ export default (string: string, from: string, to: string) => {
       if (to === kebab) {
         return string.replace(/\s+/g, "-").toLowerCase();
       }
+      break;
     }
     default:
       return string;
