@@ -80,7 +80,7 @@ const ListById = ({ title }) => {
               </div>
               <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
                 <div>
-                  <h1>Based on Votes: Momo</h1>
+                  <h1>Based on Votes: Mina</h1>
                   <Bar
                     data={data}
                     width={400}
