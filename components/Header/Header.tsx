@@ -91,7 +91,7 @@ const Header = () => {
             </div>
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                {!(user && user?.id) ? (
+                {!user ? (
                   <button
                     onClick={() => setModalVisibility(true)}
                     type="button"
@@ -104,7 +104,7 @@ const Header = () => {
                 )}
               </div>
 
-              {user && user?.id ? (
+              {user?.id ? (
                 <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
                   <div className="ml-3 relative" {...bind}>
                     <div>
@@ -116,7 +116,7 @@ const Header = () => {
                         <span className="sr-only">Open user menu</span>
                         <img
                           className="h-8 w-8 rounded-full"
-                          src={user?.avatar}
+                          src={user.avatar || "/images/defaultAvatar.jpg"}
                           alt=""
                         />
                       </button>
