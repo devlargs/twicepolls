@@ -13,7 +13,6 @@
     "stopall": "lsof -t -i:2000 -i:6001 -i:9080 -i:8086 -i:9099 | xargs kill -9"
   },
   "dependencies": {
-    "@chakra-ui/react": "^1.1.0",
     "@emotion/react": "^11.1.4",
     "@emotion/styled": "^11.0.0",
     "@reduxjs/toolkit": "^1.5.0",
@@ -29,7 +28,6 @@
     "firebase-functions": "^3.13.0",
     "framer-motion": "^3.1.1",
     "js-cookie": "^2.2.1",
-    "lorem-ipsum": "^2.0.3",
     "next": "9.5.3",
     "nprogress": "^0.2.0",
     "postcss": "^7.0.35",

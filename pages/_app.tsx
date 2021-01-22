@@ -1,6 +1,4 @@
-import "tailwindcss/tailwind.css";
 import "styles/globals.css";
-import { Box } from "@chakra-ui/react";
 import Header from "components/Header";
 import NProgress from "nprogress";
 import { useEffect } from "react";
@@ -44,7 +42,6 @@ const App = ({ Component, pageProps }) => {
     <ReduxProvider store={store}>
       <>
         <Header />
-        <Box h={4} />
         <Component {...pageProps} />
         <Footer />
       </>
