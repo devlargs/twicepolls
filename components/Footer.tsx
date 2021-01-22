@@ -1,9 +1,9 @@
 const Footer = () => {
   return (
     <footer className="bg-white">
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
+      <div className="bg-blue-500 mx-auto py-12 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
         <div className="flex justify-center space-x-6 md:order-2">
-          <a href="#" className="text-gray-400 hover:text-gray-500">
+          <a href="#" className="text-white hover:text-black">
             <span className="sr-only">Facebook</span>
             <svg
               className="h-6 w-6"
@@ -19,7 +19,7 @@ const Footer = () => {
             </svg>
           </a>
 
-          <a href="#" className="text-gray-400 hover:text-gray-500">
+          <a href="#" className="text-white hover:text-gray-500">
             <span className="sr-only">Twitter</span>
             <svg
               className="h-6 w-6"
@@ -32,7 +32,7 @@ const Footer = () => {
           </a>
         </div>
         <div className="mt-8 md:mt-0 md:order-1">
-          <p className="text-center text-base text-gray-400">
+          <p className="text-center text-base text-white">
             &copy; 2020 Twice Polls. All rights reserved.
           </p>
         </div>

@@ -19,14 +19,14 @@ export const Mobile = () => (
         <div className="flex-shrink-0">
           <img
             className="h-10 w-10 rounded-full"
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            src="/images/author.jpeg"
             alt=""
           />
         </div>
         <div className="ml-3">
-          <div className="text-base font-medium text-gray-800">Tom Cook</div>
+          <div className="text-base font-medium text-gray-800">Author</div>
           <div className="text-sm font-medium text-gray-500">
-            tom@example.com
+            devlargs@gmail.com
           </div>
         </div>
         <button className="ml-auto flex-shrink-0 bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">

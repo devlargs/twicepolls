@@ -71,12 +71,12 @@ const Header = () => {
               <div className="flex-shrink-0 flex items-center">
                 <img
                   className="block lg:hidden h-8 w-auto"
-                  src="https://freepngimg.com/download/logo/92693-kpop-jyp-entertainment-twice-black-circle.png"
+                  src="/images/logo.png"
                   alt="TwicePolls"
                 />
                 <img
                   className="hidden lg:block h-8 w-auto"
-                  src="https://freepngimg.com/download/logo/92693-kpop-jyp-entertainment-twice-black-circle.png"
+                  src="/images/logo.png"
                   alt="TwicePolls"
                 />
               </div>
