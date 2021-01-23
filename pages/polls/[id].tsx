@@ -75,7 +75,7 @@ const ListById = ({ title }) => {
                   id="applicant-information-title"
                   className="text-3xl leading-6 font-medium text-gray-900"
                 >
-                  {title}
+                  {title}?
                 </h2>
                 <p className="mt-1 max-w-2xl text-md text-gray-500">
                   Created by @devlargs
@@ -89,7 +89,7 @@ const ListById = ({ title }) => {
                   Vote Now
                 </button>
               </div>
-              <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
+              <div className="border-gray-200 px-4 py-5 sm:px-6">
                 <div>
                   {/* <h1 className="text-2xl">Leaderboard</h1> */}
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
