@@ -89,7 +89,7 @@ const ListById = ({ title }) => {
                 </button>
               </div>
               <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
-                <div>
+                <div className="lg:max-w-1/2 md:max-w-full">
                   <h1>Based on Votes: Mina</h1>
                   <Bar
                     data={data}
