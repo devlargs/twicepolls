@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import shuffleArray from "utils/shuffleArray";
 
 type Props = {
   onClose: () => void;
@@ -10,7 +11,10 @@ const VoteModal = memo(({ onClose, title }: Props) => {
     <div className="fixed z-10 inset-0 overflow-y-auto">
       <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div className="fixed inset-0 transition-opacity" aria-hidden="true">
-          <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+          <div
+            className="absolute inset-0 bg-gray-500 opacity-75"
+            onClick={onClose}
+          ></div>
         </div>
 
         <span
@@ -31,7 +35,7 @@ const VoteModal = memo(({ onClose, title }: Props) => {
               <h1 className="text-2xl">{title}?</h1>
 
               <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                {[
+                {shuffleArray([
                   "Nayeon",
                   "Sana",
                   "Jihyo",
@@ -41,7 +45,7 @@ const VoteModal = memo(({ onClose, title }: Props) => {
                   "Chaeyoung",
                   "Tzuyu",
                   "Dahyun",
-                ].map((q) => (
+                ]).map((q) => (
                   <li
                     key={q}
                     className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200"
