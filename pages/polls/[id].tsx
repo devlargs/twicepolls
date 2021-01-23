@@ -1,3 +1,4 @@
+import Leaderboard from "components/Leaderboard";
 import SEO from "components/SEO";
 import VoteModal from "components/VoteModal";
 import config from "constants/config";
@@ -6,7 +7,7 @@ import { useState } from "react";
 import { Bar } from "react-chartjs-2";
 
 const ListById = ({ title }) => {
-  const [dataset] = useState([13, 14, 11, 11, 13, 11, 12, 12, 12]);
+  const [dataset] = useState([13, 14, 12.5, 11, 13, 11, 12, 12, 12]);
   const [isOpen, setIsOpen] = useState(false);
 
   const data = {
@@ -74,7 +75,7 @@ const ListById = ({ title }) => {
                   id="applicant-information-title"
                   className="text-3xl leading-6 font-medium text-gray-900"
                 >
-                  {title.toUpperCase()}
+                  {title}
                 </h2>
                 <p className="mt-1 max-w-2xl text-md text-gray-500">
                   Created by @devlargs
@@ -89,16 +90,23 @@ const ListById = ({ title }) => {
                 </button>
               </div>
               <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
-                <div className="lg:max-w-1/2 md:max-w-full">
-                  <h1>Based on Votes: Mina</h1>
-                  <Bar
-                    data={data}
-                    width={400}
-                    height={200}
-                    // options={{
-                    //   maintainAspectRatio: false,
-                    // }}
-                  />
+                <div>
+                  {/* <h1 className="text-2xl">Leaderboard</h1> */}
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div className="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                      <Bar
+                        data={data}
+                        width={400}
+                        height={200}
+                        // options={{
+                        //   maintainAspectRatio: false,
+                        // }}
+                      />
+                    </div>
+                    <div className="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                      <Leaderboard />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -259,7 +267,7 @@ const ListById = ({ title }) => {
                       <div className="mt-3 flex items-center justify-between">
                         <button
                           type="submit"
-                          className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                          className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-700 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                         >
                           Comment
                         </button>

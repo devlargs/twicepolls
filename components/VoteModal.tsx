@@ -32,7 +32,19 @@ const VoteModal = memo(({ onClose, title }: Props) => {
         >
           <div>
             <div className="mt-3 text-center sm:mt-5">
-              <h1 className="text-2xl">{title}?</h1>
+              <div className="relative">
+                <div
+                  className="absolute inset-0 flex items-center"
+                  aria-hidden="true"
+                >
+                  <div className="w-full border-t border-gray-300"></div>
+                </div>
+                <div className="relative flex justify-center">
+                  <span className="px-3 bg-white text-gray-900 text-2xl">
+                    {title}?
+                  </span>
+                </div>
+              </div>
 
               <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {shuffleArray([
