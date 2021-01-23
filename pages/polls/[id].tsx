@@ -1,12 +1,65 @@
 import SEO from "components/SEO";
+import VoteModal from "components/VoteModal";
 import config from "constants/config";
 import { NextPageContext } from "next";
+import { useState } from "react";
+import { Bar } from "react-chartjs-2";
 
-const ListById = ({ slug, title }) => {
-  console.log(slug);
+const ListById = ({ title }) => {
+  const [dataset] = useState([13, 14, 11, 11, 13, 11, 12, 12, 12]);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const data = {
+    labels: [
+      "Jihyo",
+      "Mina",
+      "Nayeon",
+      "Jeongyeon",
+      "Chaeyoung",
+      "Tzuyu",
+      "Dahyun",
+      "Momo",
+      "Sana",
+    ],
+    datasets: [
+      {
+        label: "# of Votes",
+        data: dataset,
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(255, 206, 86, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+          "rgba(153, 102, 255, 0.2)",
+          "rgba(255, 159, 64, 0.2)",
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(255, 206, 86, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+          "rgba(153, 102, 255, 0.2)",
+          "rgba(255, 159, 64, 0.2)",
+        ],
+        borderColor: [
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+          "rgba(153, 102, 255, 1)",
+          "rgba(255, 159, 64, 1)",
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+          "rgba(153, 102, 255, 1)",
+          "rgba(255, 159, 64, 1)",
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
 
   return (
-    <>
+    <div>
       <SEO title={`${title} | ${config.appTitle}`} />
 
       <div className="relative pt-8 pb-20 px-4 sm:px-6  lg:pb-28 lg:px-8">
@@ -19,16 +72,34 @@ const ListById = ({ slug, title }) => {
               <div className="px-4 py-5 sm:px-6">
                 <h2
                   id="applicant-information-title"
-                  className="text-lg leading-6 font-medium text-gray-900"
+                  className="text-3xl leading-6 font-medium text-gray-900"
                 >
-                  {title}
+                  {title.toUpperCase()}
                 </h2>
-                <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                <p className="mt-1 max-w-2xl text-md text-gray-500">
                   Created by @devlargs
                 </p>
+                <br />
+                <button
+                  type="button"
+                  className="inline-flex items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none"
+                  onClick={() => setIsOpen((e: boolean) => !e)}
+                >
+                  Vote Now
+                </button>
               </div>
               <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
-                Graph here
+                <div className="lg:max-w-1/2 md:max-w-full">
+                  <h1>Based on Votes: Mina</h1>
+                  <Bar
+                    data={data}
+                    width={400}
+                    height={200}
+                    // options={{
+                    //   maintainAspectRatio: false,
+                    // }}
+                  />
+                </div>
               </div>
             </div>
           </section>
@@ -59,15 +130,11 @@ const ListById = ({ slug, title }) => {
                         <div>
                           <div className="text-sm">
                             <a href="#" className="font-medium text-gray-900">
-                              Leslie Alexander
+                              Harry Angelo Soer
                             </a>
                           </div>
                           <div className="mt-1 text-sm text-gray-700">
-                            <p>
-                              Ducimus quas delectus ad maxime totam doloribus
-                              reiciendis ex. Tempore dolorem maiores. Similique
-                              voluptatibus tempore non ut.
-                            </p>
+                            <p>Nayeon is so gorgeous</p>
                           </div>
                           <div className="mt-2 text-sm space-x-2">
                             <span className="text-gray-500 font-medium">
@@ -99,16 +166,11 @@ const ListById = ({ slug, title }) => {
                         <div>
                           <div className="text-sm">
                             <a href="#" className="font-medium text-gray-900">
-                              Michael Foster
+                              Harry Roque
                             </a>
                           </div>
                           <div className="mt-1 text-sm text-gray-700">
-                            <p>
-                              Et ut autem. Voluptatem eum dolores sint
-                              necessitatibus quos. Quis eum qui dolorem
-                              accusantium voluptas voluptatem ipsum. Quo facere
-                              iusto quia accusamus veniam id explicabo et aut.
-                            </p>
+                            <p>Im not impressed</p>
                           </div>
                           <div className="mt-2 text-sm space-x-2">
                             <span className="text-gray-500 font-medium">
@@ -195,25 +257,6 @@ const ListById = ({ slug, title }) => {
                         ></textarea>
                       </div>
                       <div className="mt-3 flex items-center justify-between">
-                        <a
-                          href="#"
-                          className="group inline-flex items-start text-sm space-x-2 text-gray-500 hover:text-gray-900"
-                        >
-                          <svg
-                            className="flex-shrink-0 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                            aria-hidden="true"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                          <span>Some HTML is okay.</span>
-                        </a>
                         <button
                           type="submit"
                           className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
@@ -229,7 +272,8 @@ const ListById = ({ slug, title }) => {
           </section>
         </div>
       </div>
-    </>
+      {isOpen && <VoteModal title={title} onClose={() => setIsOpen(false)} />}
+    </div>
   );
 };
 
