@@ -1,4 +1,5 @@
 import SEO from "components/SEO";
+import VoteModal from "components/VoteModal";
 import config from "constants/config";
 import { NextPageContext } from "next";
 import { useState } from "react";
@@ -6,6 +7,7 @@ import { Bar } from "react-chartjs-2";
 
 const ListById = ({ title }) => {
   const [dataset] = useState([13, 14, 11, 11, 13, 11, 12, 12, 12]);
+  const [isOpen, setIsOpen] = useState(false);
 
   const data = {
     labels: [
@@ -77,6 +79,14 @@ const ListById = ({ title }) => {
                 <p className="mt-1 max-w-2xl text-md text-gray-500">
                   Created by @devlargs
                 </p>
+                <br />
+                <button
+                  type="button"
+                  className="inline-flex items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none"
+                  onClick={() => setIsOpen((e: boolean) => !e)}
+                >
+                  Vote Now
+                </button>
               </div>
               <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
                 <div>
@@ -261,6 +271,8 @@ const ListById = ({ title }) => {
             </div>
           </section>
         </div>
+
+        {isOpen && <VoteModal />}
       </div>
     </>
   );
