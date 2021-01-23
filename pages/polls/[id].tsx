@@ -271,9 +271,8 @@ const ListById = ({ title }) => {
             </div>
           </section>
         </div>
-
-        {isOpen && <VoteModal />}
       </div>
+      {isOpen && <VoteModal title={title} onClose={() => setIsOpen(false)} />}
     </div>
   );
 };
