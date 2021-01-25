@@ -14,7 +14,8 @@ export default function initFirebase() {
     firebase.initializeApp(config);
 
     if (process.env.NODE_ENV === "development") {
-      firebase.firestore.setLogLevel("debug");
+      // SET LOG LEVEL : 'debug' || 'error' || 'silent'
+      firebase.firestore.setLogLevel("silent");
       firebase.firestore().settings({
         host: "localhost:8080",
         ssl: false,
