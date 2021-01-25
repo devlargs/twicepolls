@@ -4,14 +4,12 @@ const admin = require("firebase-admin");
 admin.initializeApp();
 
 exports.newUserSignup = functions.auth.user().onCreate((user) => {
-  console.log(user);
-  return admin
-    .firestore()
-    .collection("users")
-    .doc(user.uid)
-    .set({
-      ...user,
-    });
+  return admin.firestore().collection("users").doc(user.uid).set({
+    email: user.email,
+    displayName: user.displayName,
+    disabled: user.disabled,
+    photoURL: user.photoURL,
+  });
 });
 
 // exports.userDeleted = functions.auth.user().onDelete((user) => {
