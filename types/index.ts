@@ -6,4 +6,5 @@ export type PollsProps = {
   dateUpdated: string;
   type: "members" | "custom" | "songs";
   approved: boolean;
+  id: string;
 };
