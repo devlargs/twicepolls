@@ -28,7 +28,7 @@ const Lists = (props) => {
           <div className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none">
             {data.map((q: PollsProps) => {
               return (
-                <Link href={`/polls/${q.slug}---${q.id}`} key={q?.id}>
+                <Link href={`/polls/${q.slug}`} key={q?.id}>
                   <div className="flex flex-col rounded-lg shadow-lg overflow-hidden">
                     <div className="flex-shrink-0">
                       <img
