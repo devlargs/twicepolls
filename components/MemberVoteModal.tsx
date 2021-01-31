@@ -47,7 +47,10 @@ const MemberVoteModal = memo(({ onClose, title, pollId, answers }: Props) => {
       { merge: true }
     );
 
-    batch.commit().then(() => setVoteLoading(false));
+    batch.commit().then(() => {
+      setVoteLoading(false);
+      onClose();
+    });
   };
 
   return (
