@@ -8,27 +8,36 @@ import { useEffect, useState } from "react";
 import getFirestoreCollection from "utils/auth/getFirestoreCollection";
 import { useUser } from "utils/auth/useUser";
 import MemberVoteModal from "components/MemberVoteModal";
+import { getUserFromCookie } from "utils/auth/userCookies";
 
 const ListById = ({ details, createdBy }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [voted, setVoted] = useState(false);
+  const [checkIfVoted, setCheckIfVoted] = useState(false);
   // const [answer, setAnswer] = useState([]);
   const { user } = useUser();
 
   useEffect(() => {
     (async () => {
       if (user?.id) {
+        console.log("running?");
+        setCheckIfVoted(true);
         const answerRef = getFirestoreCollection("answers");
         const querySnapshot = await answerRef
           .where("userId", "==", user.id)
-          .where("pollId", "==", "")
+          .where("pollId", "==", details.id)
           .get();
+
+        console.log(querySnapshot.size);
 
         if (querySnapshot.size) {
           setVoted(true);
+          setCheckIfVoted(false);
           querySnapshot.docs.forEach((q) => {
-            console.log(q);
+            console.log(q.data());
           });
+        } else {
+          setCheckIfVoted(false);
         }
       }
     })();
@@ -58,24 +67,30 @@ const ListById = ({ details, createdBy }) => {
                 <br />
                 {user?.id && (
                   <>
-                    {voted ? (
-                      <button
-                        type="button"
-                        disabled
-                        className="inline-flex items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-indigo-400 hover:bg-indigo-500 focus:outline-none"
-                      >
-                        You already voted
-                      </button>
+                    {checkIfVoted ? (
+                      "loading"
                     ) : (
-                      <button
-                        type="button"
-                        className="inline-flex items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none"
-                        onClick={() => {
-                          setIsOpen((e: boolean) => !e);
-                        }}
-                      >
-                        Vote Now
-                      </button>
+                      <>
+                        {voted ? (
+                          <button
+                            type="button"
+                            disabled
+                            className="inline-flex items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-indigo-400 hover:bg-indigo-500 focus:outline-none"
+                          >
+                            You already voted
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            className="inline-flex items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none"
+                            onClick={() => {
+                              setIsOpen((e: boolean) => !e);
+                            }}
+                          >
+                            Vote Now
+                          </button>
+                        )}
+                      </>
                     )}
                   </>
                 )}
@@ -138,6 +153,8 @@ ListById.getInitialProps = async (ctx: NextPageContext) => {
   const userRef = await getFirestoreCollection("users")
     .doc(data[0].createdBy)
     .get();
+
+  console.log(getUserFromCookie());
 
   return {
     slug: ctx.query.id,

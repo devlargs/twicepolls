@@ -113,7 +113,7 @@ const PollComments = () => (
           />
         </div>
         <div className="min-w-0 flex-1">
-          <form action="#">
+          <form>
             <div>
               <label htmlFor="comment" className="sr-only">
                 About

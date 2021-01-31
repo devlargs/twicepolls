@@ -12,7 +12,7 @@ const Leaderboard = memo(({ answers }: any) => {
       <div className="flow-root mt-6">
         <ul className="-my-5 divide-y divide-gray-200">
           {sliced.map((q, i) => (
-            <li className="py-4">
+            <li className="py-4" key={i}>
               <div className="flex items-center space-x-4">
                 <div className="flex-shrink-0">
                   <img
@@ -23,7 +23,8 @@ const Leaderboard = memo(({ answers }: any) => {
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-gray-900 truncate">
-                    {q.answer} ({q.voteCount} Votes)
+                    {q.answer} ({q.voteCount}{" "}
+                    {q.voteCount === 1 ? "Vote" : "Votes"})
                   </p>
                   <p className="text-sm text-gray-500 truncate">
                     {toOrdinal(i + 1)}
