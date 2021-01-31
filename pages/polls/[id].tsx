@@ -4,35 +4,48 @@ import PollComments from "components/PollComments";
 import SEO from "components/SEO";
 import config from "constants/config";
 import { NextPageContext } from "next";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import getFirestoreCollection from "utils/auth/getFirestoreCollection";
 import { useUser } from "utils/auth/useUser";
 import MemberVoteModal from "components/MemberVoteModal";
 import ThreeLineDotted from "components/Loaders/ThreeLineDotted";
 
-const ListById = ({ details, createdBy }) => {
+const ListById = ({ details: serverDetails, createdBy }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [details, setDetails] = useState(serverDetails);
   const [voted, setVoted] = useState(false);
   const [checkIfVoted, setCheckIfVoted] = useState(false);
   const { user } = useUser();
 
-  useEffect(() => {
-    let mounted = true;
+  const propDetail = useMemo(() => details.answers, [details]);
 
-    if (mounted) {
-      console.log("gago");
-    }
+  useEffect(() => {
+    const unsubscribe = getFirestoreCollection("polls")
+      .where("slug", "==", details.slug)
+      .onSnapshot((snapshot) => {
+        if (snapshot.docChanges) {
+          snapshot.docChanges().forEach(function (change) {
+            if (change.type === "modified") {
+              setDetails((prev) => ({
+                ...prev,
+                answers: change.doc.data().answers,
+              }));
+            }
+          });
+        }
+      });
 
     return () => {
-      mounted = false;
+      unsubscribe();
     };
   }, []);
+
+  // console.log(details);
 
   useEffect(() => {
     (async () => {
       // TODO - Get all user vote details, run this code in app.tsx, use zustand instead
       if (user?.id) {
-        console.log("run");
         setCheckIfVoted(true);
         const answerRef = getFirestoreCollection("answers");
         const querySnapshot = await answerRef
@@ -113,7 +126,7 @@ const ListById = ({ details, createdBy }) => {
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                       {details.type === "members" && (
-                        <MembersBarChart answers={details.answers} />
+                        <MembersBarChart answers={propDetail} />
                       )}
                     </div>
                     <div className="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400">
@@ -151,7 +164,6 @@ const ListById = ({ details, createdBy }) => {
 };
 
 ListById.getInitialProps = async (ctx: NextPageContext) => {
-  const { req } = ctx;
   const data = [];
   const pollRef = getFirestoreCollection("polls");
   const querySnapshot = await pollRef.where("slug", "==", ctx.query.id).get();

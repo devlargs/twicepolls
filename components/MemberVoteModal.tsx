@@ -10,6 +10,7 @@ type Props = {
   title: string;
   pollId: string;
   answers: Array<any>;
+  setVoted: (e: boolean) => void;
 };
 
 const MemberVoteModal = memo(

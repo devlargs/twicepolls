@@ -1,14 +1,12 @@
-import { useState } from "react";
 import { Bar } from "react-chartjs-2";
 
 const MembersBarChart = ({ answers }: { answers: Array<any> }) => {
-  const [dataset] = useState(answers.map((q) => q.voteCount));
   const data = {
     labels: answers.map((q) => q.answer),
     datasets: [
       {
-        label: "# of Votes",
-        data: dataset,
+        label: "Number of Votes",
+        data: answers.map((q) => q.voteCount),
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
