@@ -85,9 +85,9 @@ const Header = () => {
                 />
               </div>
               <div className="hidden md:ml-6 md:flex md:space-x-8">
-                <Link href="/">
+                {/* <Link href="/">
                   <a className={getHeaderClass("/")}>Home</a>
-                </Link>
+                </Link> */}
                 <Link href="/polls">
                   <a className={getHeaderClass("/polls")}>Polls</a>
                 </Link>
