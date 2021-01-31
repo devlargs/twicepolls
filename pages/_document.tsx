@@ -63,7 +63,7 @@ export default class MyDocument extends Document {
                   location.hostname.includes("192.168")
                   ) && !me)
               {
-                console.log("google analytics is connected")
+                console.warn("google analytics is connected")
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
