@@ -122,7 +122,7 @@ const ListById = ({ details: serverDetails, createdBy }) => {
               <div className="border-gray-200 px-4 py-5 sm:px-6">
                 <div>
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <div className="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                    <div className="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 hidden lg:flex">
                       {details.type === "members" && (
                         <MembersBarChart answers={propDetail} />
                       )}
