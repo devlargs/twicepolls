@@ -5,13 +5,24 @@ import SEO from "components/SEO";
 import VoteModal from "components/VoteModal";
 import config from "constants/config";
 import { NextPageContext } from "next";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 import getFirestoreCollection from "utils/auth/getFirestoreCollection";
+import { useUser } from "utils/auth/useUser";
 
-const ListById = ({ details, slug }) => {
-  console.log(details, slug);
+const ListById = ({ details, createdBy }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [answer, setAnswer] = useState([]);
+  const { user } = useUser();
+
+  useEffect(() => {
+    (async () => {
+      console.log(user);
+      // const pollRef = getFirestoreCollection("polls");
+      // const querySnapshot = await pollRef.where("slug", "==").get();
+    })();
+  }, []);
+
+  console.log(answer);
 
   return (
     <div>
@@ -32,29 +43,37 @@ const ListById = ({ details, slug }) => {
                   {details.question}
                 </h2>
                 <p className="mt-1 max-w-2xl text-md text-gray-500">
-                  Created by {details.createdBy}
+                  Created by {createdBy}
                 </p>
                 <br />
-                <button
-                  type="button"
-                  className="inline-flex items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none"
-                  onClick={() => setIsOpen((e: boolean) => !e)}
-                >
-                  Vote Now
-                </button>
+                {user?.id && (
+                  <button
+                    type="button"
+                    className="inline-flex items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none"
+                    onClick={() => {
+                      setIsOpen((e: boolean) => !e);
+                    }}
+                  >
+                    Vote Now
+                  </button>
+                )}
               </div>
               <div className="border-gray-200 px-4 py-5 sm:px-6">
                 <div>
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                      {details.type === "members" ? (
+                      {details.type === "members" && (
                         <MembersBarChart answers={details.answers} />
-                      ) : (
-                        <></>
                       )}
                     </div>
-                    <div className="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                      <Leaderboard />
+                    <div className="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400">
+                      {details.type === "members" && (
+                        <Leaderboard
+                          answers={details.answers.sort((a, b) =>
+                            a.voteCount < b.voteCount ? 1 : -1
+                          )}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
@@ -69,7 +88,11 @@ const ListById = ({ details, slug }) => {
         </div>
       </div>
       {isOpen && (
-        <VoteModal title={details.question} onClose={() => setIsOpen(false)} />
+        <VoteModal
+          title={details.question}
+          onClose={() => setIsOpen(false)}
+          pollId=""
+        />
       )}
     </div>
   );
@@ -78,7 +101,6 @@ const ListById = ({ details, slug }) => {
 ListById.getInitialProps = async (ctx: NextPageContext) => {
   const data = [];
   const pollRef = getFirestoreCollection("polls");
-
   const querySnapshot = await pollRef.where("slug", "==", ctx.query.id).get();
 
   querySnapshot.forEach((doc) => {
@@ -90,9 +112,14 @@ ListById.getInitialProps = async (ctx: NextPageContext) => {
     });
   });
 
+  const userRef = await getFirestoreCollection("users")
+    .doc(data[0].createdBy)
+    .get();
+
   return {
     slug: ctx.query.id,
     details: data.length ? data[0] : {},
+    createdBy: userRef.data()?.displayName || userRef.data()?.email,
   };
 };
 

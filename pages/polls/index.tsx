@@ -22,7 +22,7 @@ const Lists = (props: any) => {
               Lists of Polls
             </h2>
             <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500 sm:mt-3">
-              - created by onces -
+              - for onces -
             </p>
           </div>
           <div className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none">

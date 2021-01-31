@@ -4,9 +4,10 @@ import shuffleArray from "utils/shuffleArray";
 type Props = {
   onClose: () => void;
   title: string;
+  pollId: string;
 };
 
-const VoteModal = memo(({ onClose, title }: Props) => {
+const VoteModal = memo(({ onClose, title, pollId }: Props) => {
   return (
     <div className="fixed z-10 inset-0 overflow-y-auto">
       <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -41,7 +42,7 @@ const VoteModal = memo(({ onClose, title }: Props) => {
                 </div>
                 <div className="relative flex justify-center">
                   <span className="px-3 bg-white text-gray-900 text-2xl">
-                    {title}?
+                    {title}
                   </span>
                 </div>
               </div>

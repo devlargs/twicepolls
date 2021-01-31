@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Bar } from "react-chartjs-2";
 
 const MembersBarChart = ({ answers }: { answers: Array<any> }) => {
-  console.log(answers);
   const [dataset] = useState(answers.map((q) => q.voteCount));
   const data = {
     labels: answers.map((q) => q.answer),
