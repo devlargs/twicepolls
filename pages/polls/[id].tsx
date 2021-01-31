@@ -2,27 +2,41 @@ import MembersBarChart from "components/Charts/MembersBarChart";
 import Leaderboard from "components/Leaderboard";
 import PollComments from "components/PollComments";
 import SEO from "components/SEO";
-import VoteModal from "components/VoteModal";
 import config from "constants/config";
 import { NextPageContext } from "next";
 import { useEffect, useState } from "react";
 import getFirestoreCollection from "utils/auth/getFirestoreCollection";
 import { useUser } from "utils/auth/useUser";
+import MemberVoteModal from "components/MemberVoteModal";
 
 const ListById = ({ details, createdBy }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [answer, setAnswer] = useState([]);
+  const [voted, setVoted] = useState(false);
+  // const [answer, setAnswer] = useState([]);
   const { user } = useUser();
 
   useEffect(() => {
     (async () => {
-      console.log(user);
+      if (user?.id) {
+        const answerRef = getFirestoreCollection("answers");
+        const querySnapshot = await answerRef
+          .where("userId", "==", user.id)
+          .where("pollId", "==", "")
+          .get();
+
+        if (querySnapshot.size) {
+          setVoted(true);
+          querySnapshot.docs.forEach((q) => {
+            console.log(q);
+          });
+        }
+      }
+
+      // console.log(user);
       // const pollRef = getFirestoreCollection("polls");
       // const querySnapshot = await pollRef.where("slug", "==").get();
     })();
   }, []);
-
-  console.log(answer);
 
   return (
     <div>
@@ -47,15 +61,27 @@ const ListById = ({ details, createdBy }) => {
                 </p>
                 <br />
                 {user?.id && (
-                  <button
-                    type="button"
-                    className="inline-flex items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none"
-                    onClick={() => {
-                      setIsOpen((e: boolean) => !e);
-                    }}
-                  >
-                    Vote Now
-                  </button>
+                  <>
+                    {voted ? (
+                      <button
+                        type="button"
+                        disabled
+                        className="inline-flex items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-indigo-400 hover:bg-indigo-500 focus:outline-none"
+                      >
+                        You already voted
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="inline-flex items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none"
+                        onClick={() => {
+                          setIsOpen((e: boolean) => !e);
+                        }}
+                      >
+                        Vote Now
+                      </button>
+                    )}
+                  </>
                 )}
               </div>
               <div className="border-gray-200 px-4 py-5 sm:px-6">
@@ -69,7 +95,7 @@ const ListById = ({ details, createdBy }) => {
                     <div className="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400">
                       {details.type === "members" && (
                         <Leaderboard
-                          answers={details.answers.sort((a, b) =>
+                          answers={[...details.answers].sort((a, b) =>
                             a.voteCount < b.voteCount ? 1 : -1
                           )}
                         />
@@ -87,11 +113,12 @@ const ListById = ({ details, createdBy }) => {
           </section>
         </div>
       </div>
-      {isOpen && (
-        <VoteModal
+      {isOpen && details.type === "members" && (
+        <MemberVoteModal
           title={details.question}
+          answers={details.answers}
           onClose={() => setIsOpen(false)}
-          pollId=""
+          pollId={details.id}
         />
       )}
     </div>

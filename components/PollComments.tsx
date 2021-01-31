@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 const PollComments = () => (
   <div className="bg-white shadow sm:rounded-lg sm:overflow-hidden">
     <div className="divide-y divide-gray-200">
@@ -127,7 +129,11 @@ const PollComments = () => (
             <div className="mt-3 flex items-center justify-between">
               <button
                 onClick={() =>
-                  alert("comment section is currently in progress")
+                  Swal.fire(
+                    "Beta Version",
+                    "Comment section is currently in progress",
+                    "info"
+                  )
                 }
                 className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-700 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >

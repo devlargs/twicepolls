@@ -1,13 +1,19 @@
 import React, { memo } from "react";
-import shuffleArray from "utils/shuffleArray";
+import { useUser } from "utils/auth/useUser";
 
 type Props = {
   onClose: () => void;
   title: string;
   pollId: string;
+  answers: Array<any>;
 };
 
-const VoteModal = memo(({ onClose, title, pollId }: Props) => {
+const MemberVoteModal = memo(({ onClose, title, pollId, answers }: Props) => {
+  const { user } = useUser();
+  const onAnswer = (id: string) => {
+    // console.log(pollId, id, user.id);
+  };
+
   return (
     <div className="fixed z-10 inset-0 overflow-y-auto">
       <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -48,26 +54,16 @@ const VoteModal = memo(({ onClose, title, pollId }: Props) => {
               </div>
 
               <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                {shuffleArray([
-                  "Nayeon",
-                  "Sana",
-                  "Jihyo",
-                  "Momo",
-                  "Jeongyeon",
-                  "Mina",
-                  "Chaeyoung",
-                  "Tzuyu",
-                  "Dahyun",
-                ]).map((q) => (
+                {answers.map(({ answer, memberId }, i) => (
                   <li
-                    key={q}
+                    key={i}
                     className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200"
                   >
                     <div className="flex-1 flex flex-col p-8">
                       <img
                         style={{ maxHeight: "250px" }}
                         className=" flex-shrink-0 mx-auto bg-black"
-                        src={`/images/members/${q.toLowerCase()}.jpg`}
+                        src={`/images/members/${answer.toLowerCase()}.jpg`}
                         alt=""
                       />
                       <h3 className="mt-6 text-gray-900 text-sm font-medium"></h3>
@@ -75,9 +71,10 @@ const VoteModal = memo(({ onClose, title, pollId }: Props) => {
                         <dd>
                           <button
                             type="button"
+                            onClick={() => onAnswer(memberId)}
                             className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none "
                           >
-                            Vote for {q}
+                            Vote for {answer}
                           </button>
                         </dd>
                       </dl>
@@ -102,4 +99,4 @@ const VoteModal = memo(({ onClose, title, pollId }: Props) => {
   );
 });
 
-export default VoteModal;
+export default MemberVoteModal;

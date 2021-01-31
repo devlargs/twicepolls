@@ -3,7 +3,7 @@ import toOrdinal from "utils/toOrdinal";
 
 const Leaderboard = memo(({ answers }: any) => {
   const [votes] = useState(
-    answers.sort((a, b) => (a.voteCount < b.voteCount ? 1 : -1))
+    [...answers].sort((a, b) => (a.voteCount < b.voteCount ? 1 : -1))
   );
   const sliced = [...votes].splice(0, 4);
 
