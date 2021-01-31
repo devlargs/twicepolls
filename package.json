@@ -24,6 +24,8 @@
     "autoprefixer": "^9.8.6",
     "babel-plugin-styled-components": "^1.11.1",
     "chart.js": "^2.9.4",
+    "cookie": "^0.4.1",
+    "dayjs": "^1.10.4",
     "firebase": "^8.2.1",
     "firebase-admin": "^9.4.2",
     "firebase-functions": "^3.13.0",
@@ -39,6 +41,7 @@
     "react-hookedup": "^0.1.2",
     "react-redux": "^7.2.2",
     "styled-components": "^5.2.1",
+    "sweetalert2": "^10.14.0",
     "swr": "^0.3.11",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2"
   },

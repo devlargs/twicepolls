@@ -11,7 +11,6 @@ import { Integrations } from "@sentry/tracing";
 import isLocalhost from "utils/isLocalhost";
 
 if (process.browser && !isLocalhost) {
-  console.log("running");
   Sentry.init({
     dsn:
       "https://f7537a082e0b4eb4a0c403ac365506be@o508817.ingest.sentry.io/5601980",
