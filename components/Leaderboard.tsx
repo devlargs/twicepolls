@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import toOrdinal from "utils/toOrdinal";
+import Swal from "sweetalert2";
 
 const Leaderboard = memo(({ answers }: any) => {
   const votes = [...answers].sort((a, b) =>
@@ -32,7 +33,13 @@ const Leaderboard = memo(({ answers }: any) => {
                 </div>
                 <div>
                   <a
-                    href="#"
+                    onClick={() => {
+                      Swal.fire(
+                        "Beta Version",
+                        "This functionality is currently in progress",
+                        "info"
+                      );
+                    }}
                     className="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50"
                   >
                     Details

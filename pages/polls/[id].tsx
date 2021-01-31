@@ -40,8 +40,6 @@ const ListById = ({ details: serverDetails, createdBy }) => {
     };
   }, []);
 
-  // console.log(details);
-
   useEffect(() => {
     (async () => {
       // TODO - Get all user vote details, run this code in app.tsx, use zustand instead

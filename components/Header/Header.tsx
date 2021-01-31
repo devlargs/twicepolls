@@ -5,13 +5,14 @@ import { useHover } from "react-hookedup";
 import { Mobile } from "./Nav";
 import LoginModal from "components/LoginModal";
 import { useRouter } from "next/router";
+import Swal from "sweetalert2";
 
 const Header = () => {
   const { logout, user } = useUser();
   const { hovered, bind } = useHover();
   const [menuVisibility, setMenuVisibility] = useState(false);
   const [modalVisibility, setModalVisibility] = useState(false);
-  const { pathname } = useRouter();
+  const { pathname, push } = useRouter();
 
   useEffect(() => {
     setMenuVisibility(hovered);
@@ -72,7 +73,10 @@ const Header = () => {
                   </svg>
                 </button>
               </div>
-              <div className="flex-shrink-0 flex items-center">
+              <div
+                className="flex-shrink-0 flex items-center cursor-pointer"
+                onClick={() => push("/polls")}
+              >
                 <img
                   className="block lg:hidden h-8 w-auto"
                   src="/images/logo.png"
@@ -134,19 +138,31 @@ const Header = () => {
                         aria-labelledby="user-menu"
                       >
                         <a
-                          href="#"
+                          onClick={() => {
+                            Swal.fire(
+                              "Beta Version",
+                              "Profile Screen is currently in progress",
+                              "info"
+                            );
+                          }}
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                           role="menuitem"
                         >
                           Your Profile
                         </a>
-                        <a
-                          href="#"
+                        {/* <a
+                          onClick={() => {
+                            Swal.fire(
+                              "Beta Version",
+                              "Profile Screen is currently in progress",
+                              "info"
+                            );
+                          }}
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                           role="menuitem"
                         >
                           Settings
-                        </a>
+                        </a> */}
                         <a
                           onClick={logout}
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
