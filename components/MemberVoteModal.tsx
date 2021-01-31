@@ -1,5 +1,9 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
+import getFirestoreCollection, {
+  batchQuery,
+} from "utils/auth/getFirestoreCollection";
 import { useUser } from "utils/auth/useUser";
+import ThreeLineDotted from "./Loaders/ThreeLineDotted";
 
 type Props = {
   onClose: () => void;
@@ -9,9 +13,41 @@ type Props = {
 };
 
 const MemberVoteModal = memo(({ onClose, title, pollId, answers }: Props) => {
+  const [voteLoading, setVoteLoading] = useState(false);
   const { user } = useUser();
-  const onAnswer = (id: string) => {
-    // console.log(pollId, id, user.id);
+  const onAnswer = async (id: string) => {
+    setVoteLoading(true);
+
+    const batch = batchQuery();
+    const answerRef = getFirestoreCollection("answers").doc();
+    const pollsRef = getFirestoreCollection("polls").doc(pollId);
+
+    const temp = [...answers].map((jac) => {
+      if (jac.memberId === id) {
+        return {
+          ...jac,
+          voteCount: jac.voteCount + 1,
+        };
+      } else {
+        return jac;
+      }
+    });
+
+    batch.set(answerRef, {
+      pollId,
+      answerId: id,
+      userId: user.id,
+    });
+
+    batch.set(
+      pollsRef,
+      {
+        answers: temp,
+      },
+      { merge: true }
+    );
+
+    batch.commit().then(() => setVoteLoading(false));
   };
 
   return (
@@ -69,13 +105,23 @@ const MemberVoteModal = memo(({ onClose, title, pollId, answers }: Props) => {
                       <h3 className="mt-6 text-gray-900 text-sm font-medium"></h3>
                       <dl className="mt-1 flex-grow flex flex-col justify-between">
                         <dd>
-                          <button
-                            type="button"
-                            onClick={() => onAnswer(memberId)}
-                            className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none "
-                          >
-                            Vote for {answer}
-                          </button>
+                          {!voteLoading ? (
+                            <button
+                              disabled
+                              type="button"
+                              className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-400 hover:bg-indigo-500 focus:outline-none "
+                            >
+                              <ThreeLineDotted />
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => onAnswer(memberId)}
+                              className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none "
+                            >
+                              Vote for {answer}
+                            </button>
+                          )}
                         </dd>
                       </dl>
                     </div>

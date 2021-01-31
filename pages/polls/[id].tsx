@@ -31,10 +31,6 @@ const ListById = ({ details, createdBy }) => {
           });
         }
       }
-
-      // console.log(user);
-      // const pollRef = getFirestoreCollection("polls");
-      // const querySnapshot = await pollRef.where("slug", "==").get();
     })();
   }, []);
 
