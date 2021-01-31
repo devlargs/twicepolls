@@ -105,7 +105,7 @@ const MemberVoteModal = memo(({ onClose, title, pollId, answers }: Props) => {
                       <h3 className="mt-6 text-gray-900 text-sm font-medium"></h3>
                       <dl className="mt-1 flex-grow flex flex-col justify-between">
                         <dd>
-                          {!voteLoading ? (
+                          {voteLoading ? (
                             <button
                               disabled
                               type="button"
