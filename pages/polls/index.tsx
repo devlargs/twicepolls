@@ -5,7 +5,7 @@ import Link from "next/link";
 import { PollsProps } from "types";
 import getFirestoreCollection from "utils/auth/getFirestoreCollection";
 
-const Lists = (props) => {
+const Lists = (props: any) => {
   const { data } = props;
 
   return (
@@ -90,9 +90,8 @@ Lists.getInitialProps = async () => {
     data.push({
       ...doc.data(),
       id: doc.id,
-      metadata: doc.metadata,
-      dateCreated: doc.data().dateCreated.toDate(),
-      dateUpdated: doc.data().dateUpdated.toDate(),
+      dateCreated: doc.data().dateCreated,
+      dateUpdated: doc.data().dateUpdated,
     });
   });
 
