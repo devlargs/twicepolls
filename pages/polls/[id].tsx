@@ -9,36 +9,37 @@ import getFirestoreCollection from "utils/auth/getFirestoreCollection";
 import { useUser } from "utils/auth/useUser";
 import MemberVoteModal from "components/MemberVoteModal";
 import { getUserFromCookie } from "utils/auth/userCookies";
+import serverCookie from "cookie";
 
-const ListById = ({ details, createdBy }) => {
+const ListById = ({ details, createdBy, voted: serverVoted }) => {
+  // console.log(serverVoted);
   const [isOpen, setIsOpen] = useState(false);
-  const [voted, setVoted] = useState(false);
+  const [voted, setVoted] = useState(serverVoted);
   const [checkIfVoted, setCheckIfVoted] = useState(false);
   // const [answer, setAnswer] = useState([]);
   const { user } = useUser();
 
   useEffect(() => {
     (async () => {
+      console.log(user);
       if (user?.id) {
-        console.log("running?");
-        setCheckIfVoted(true);
-        const answerRef = getFirestoreCollection("answers");
-        const querySnapshot = await answerRef
-          .where("userId", "==", user.id)
-          .where("pollId", "==", details.id)
-          .get();
-
-        console.log(querySnapshot.size);
-
-        if (querySnapshot.size) {
-          setVoted(true);
-          setCheckIfVoted(false);
-          querySnapshot.docs.forEach((q) => {
-            console.log(q.data());
-          });
-        } else {
-          setCheckIfVoted(false);
-        }
+        console.log(user.id);
+        // setCheckIfVoted(true);
+        // const answerRef = getFirestoreCollection("answers");
+        // const querySnapshot = await answerRef
+        //   .where("userId", "==", user.id)
+        //   .where("pollId", "==", details.id)
+        //   .get();
+        // console.log(querySnapshot.size);
+        // if (querySnapshot.size) {
+        //   setVoted(true);
+        //   setCheckIfVoted(false);
+        //   querySnapshot.docs.forEach((q) => {
+        //     console.log(q.data());
+        //   });
+        // } else {
+        //   setCheckIfVoted(false);
+        // }
       }
     })();
   }, []);
@@ -137,7 +138,10 @@ const ListById = ({ details, createdBy }) => {
 };
 
 ListById.getInitialProps = async (ctx: NextPageContext) => {
+  const { req } = ctx;
   const data = [];
+  let userId = null;
+  let voted = false;
   const pollRef = getFirestoreCollection("polls");
   const querySnapshot = await pollRef.where("slug", "==", ctx.query.id).get();
 
@@ -154,12 +158,38 @@ ListById.getInitialProps = async (ctx: NextPageContext) => {
     .doc(data[0].createdBy)
     .get();
 
-  console.log(getUserFromCookie());
+  if (req && req.headers) {
+    const cookies = req.headers.cookie;
+
+    if (typeof cookies === "string") {
+      const cookiesJSON = serverCookie.parse(cookies);
+      if (cookiesJSON?.auth) {
+        try {
+          userId = JSON.parse(cookiesJSON?.auth)?.id;
+        } catch (ex) {
+          console.error("ERROR FROM LIST BY ID (getInitialProps)", ex);
+        }
+      }
+    }
+  }
+
+  if (userId && data.length) {
+    const answerRef = getFirestoreCollection("answers");
+    const querySnapshot = await answerRef
+      .where("userId", "==", userId)
+      .where("pollId", "==", data[0].id)
+      .get();
+
+    if (querySnapshot.size) {
+      voted = true;
+    }
+  }
 
   return {
     slug: ctx.query.id,
     details: data.length ? data[0] : {},
     createdBy: userRef.data()?.displayName || userRef.data()?.email,
+    voted,
   };
 };
 
