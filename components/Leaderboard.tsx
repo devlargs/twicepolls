@@ -1,9 +1,9 @@
-import React, { memo, useState } from "react";
+import React, { memo } from "react";
 import toOrdinal from "utils/toOrdinal";
 
 const Leaderboard = memo(({ answers }: any) => {
-  const [votes] = useState(
-    [...answers].sort((a, b) => (a.voteCount < b.voteCount ? 1 : -1))
+  const votes = [...answers].sort((a, b) =>
+    a.voteCount < b.voteCount ? 1 : -1
   );
   const sliced = [...votes].splice(0, 4);
 
