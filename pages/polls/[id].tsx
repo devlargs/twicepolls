@@ -8,41 +8,45 @@ import { useEffect, useState } from "react";
 import getFirestoreCollection from "utils/auth/getFirestoreCollection";
 import { useUser } from "utils/auth/useUser";
 import MemberVoteModal from "components/MemberVoteModal";
-import { getUserFromCookie } from "utils/auth/userCookies";
-import serverCookie from "cookie";
+import ThreeLineDotted from "components/Loaders/ThreeLineDotted";
 
-const ListById = ({ details, createdBy, voted: serverVoted }) => {
-  // console.log(serverVoted);
+const ListById = ({ details, createdBy }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [voted, setVoted] = useState(serverVoted);
+  const [voted, setVoted] = useState(false);
   const [checkIfVoted, setCheckIfVoted] = useState(false);
-  // const [answer, setAnswer] = useState([]);
   const { user } = useUser();
 
   useEffect(() => {
+    let mounted = true;
+
+    if (mounted) {
+      console.log("gago");
+    }
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
     (async () => {
-      console.log(user);
+      // TODO - Get all user vote details, run this code in app.tsx, use zustand instead
       if (user?.id) {
-        console.log(user.id);
-        // setCheckIfVoted(true);
-        // const answerRef = getFirestoreCollection("answers");
-        // const querySnapshot = await answerRef
-        //   .where("userId", "==", user.id)
-        //   .where("pollId", "==", details.id)
-        //   .get();
-        // console.log(querySnapshot.size);
-        // if (querySnapshot.size) {
-        //   setVoted(true);
-        //   setCheckIfVoted(false);
-        //   querySnapshot.docs.forEach((q) => {
-        //     console.log(q.data());
-        //   });
-        // } else {
-        //   setCheckIfVoted(false);
-        // }
+        console.log("run");
+        setCheckIfVoted(true);
+        const answerRef = getFirestoreCollection("answers");
+        const querySnapshot = await answerRef
+          .where("userId", "==", user.id)
+          .where("pollId", "==", details.id)
+          .get();
+        if (querySnapshot.size) {
+          setVoted(true);
+        }
+
+        setCheckIfVoted(false);
       }
     })();
-  }, []);
+  }, [user && user.id]);
 
   return (
     <div>
@@ -66,10 +70,18 @@ const ListById = ({ details, createdBy, voted: serverVoted }) => {
                   Created by {createdBy}
                 </p>
                 <br />
+
                 {user?.id && (
                   <>
                     {checkIfVoted ? (
-                      "loading"
+                      <button
+                        type="button"
+                        disabled
+                        className="inline-flex items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-indigo-400 hover:bg-indigo-500 focus:outline-none"
+                      >
+                        &nbsp; &nbsp;
+                        <ThreeLineDotted />
+                      </button>
                     ) : (
                       <>
                         {voted ? (
@@ -127,6 +139,7 @@ const ListById = ({ details, createdBy, voted: serverVoted }) => {
       </div>
       {isOpen && details.type === "members" && (
         <MemberVoteModal
+          setVoted={setVoted}
           title={details.question}
           answers={details.answers}
           onClose={() => setIsOpen(false)}
@@ -140,8 +153,6 @@ const ListById = ({ details, createdBy, voted: serverVoted }) => {
 ListById.getInitialProps = async (ctx: NextPageContext) => {
   const { req } = ctx;
   const data = [];
-  let userId = null;
-  let voted = false;
   const pollRef = getFirestoreCollection("polls");
   const querySnapshot = await pollRef.where("slug", "==", ctx.query.id).get();
 
@@ -158,38 +169,26 @@ ListById.getInitialProps = async (ctx: NextPageContext) => {
     .doc(data[0].createdBy)
     .get();
 
-  if (req && req.headers) {
-    const cookies = req.headers.cookie;
+  // TODO - Check user token on server
+  // if (req && req.headers) {
+  //   const cookies = req.headers.cookie;
 
-    if (typeof cookies === "string") {
-      const cookiesJSON = serverCookie.parse(cookies);
-      if (cookiesJSON?.auth) {
-        try {
-          userId = JSON.parse(cookiesJSON?.auth)?.id;
-        } catch (ex) {
-          console.error("ERROR FROM LIST BY ID (getInitialProps)", ex);
-        }
-      }
-    }
-  }
-
-  if (userId && data.length) {
-    const answerRef = getFirestoreCollection("answers");
-    const querySnapshot = await answerRef
-      .where("userId", "==", userId)
-      .where("pollId", "==", data[0].id)
-      .get();
-
-    if (querySnapshot.size) {
-      voted = true;
-    }
-  }
+  //   if (typeof cookies === "string") {
+  //     const cookiesJSON = serverCookie.parse(cookies);
+  //     if (cookiesJSON?.auth) {
+  //       try {
+  //         userId = JSON.parse(cookiesJSON?.auth)?.id;
+  //       } catch (ex) {
+  //         console.error("ERROR FROM LIST BY ID (getInitialProps)", ex);
+  //       }
+  //     }
+  //   }
+  // }
 
   return {
     slug: ctx.query.id,
     details: data.length ? data[0] : {},
     createdBy: userRef.data()?.displayName || userRef.data()?.email,
-    voted,
   };
 };
 
