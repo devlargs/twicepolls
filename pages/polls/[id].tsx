@@ -2,7 +2,6 @@ import MembersBarChart from "components/Charts/MembersBarChart";
 import Leaderboard from "components/Leaderboard";
 import PollComments from "components/PollComments";
 import SEO from "components/SEO";
-import config from "constants/config";
 import { NextPageContext } from "next";
 import { useEffect, useMemo, useState } from "react";
 import getFirestoreCollection from "utils/auth/getFirestoreCollection";
