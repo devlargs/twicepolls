@@ -10,9 +10,15 @@
     "start": "next start",
     "import:db": "firebase emulators:start --import @localdb",
     "export:db": "firebase emulators:export @localdb",
-    "stopall": "lsof -t -i:2000 -i:6001 -i:9080 -i:8086 -i:9099 | xargs kill -9"
+    "stopall": "lsof -t -i:2000 -i:6001 -i:9080 -i:8086 -i:9099 | xargs kill -9",
+    "release": "standard-version",
+    "release:minor": "standard-version --release-as minor",
+    "release:patch": "standard-version --release-as patch",
+    "release:major": "standard-version --release-as major"
   },
   "dependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
     "@emotion/react": "^11.1.4",
     "@emotion/styled": "^11.0.0",
     "@reduxjs/toolkit": "^1.5.0",
@@ -30,6 +36,7 @@
     "firebase-admin": "^9.4.2",
     "firebase-functions": "^3.13.0",
     "framer-motion": "^3.1.1",
+    "husky": "^4.3.8",
     "js-cookie": "^2.2.1",
     "next": "9.5.3",
     "nprogress": "^0.2.0",
@@ -49,6 +56,12 @@
     "@types/node": "^14.11.2",
     "@types/react": "^16.9.50",
     "postcss-preset-env": "^6.7.0",
+    "standard-version": "^9.1.0",
     "typescript": "^4.0.3"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
