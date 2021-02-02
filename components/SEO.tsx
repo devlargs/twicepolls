@@ -15,17 +15,18 @@ const SEO = ({ title, imgAlt, imgCoverUrl }: Props) => {
     : process.env.WEBSITE_URL;
 
   const url = `${origin}${router?.pathname}`;
+  const description = "Twice Polls | created for once's";
 
   return (
     <Head>
       <title>{title}</title>
       <meta name="og:type" content="article" />
       <meta name="robots" content="index, follow" />
-      <meta name="description" content={title} />
+      <meta name="description" content={description} />
       <meta name="og:title" property="og:title" content={title} />
-      <meta name="og:description" content={title} />
+      <meta name="og:description" content={description} />
       <meta name="twitter:card" content="summary" />
-      <meta name="twitter:description" content={title} />
+      <meta name="twitter:description" content={description} />
       <meta name="og:url" content={url} />
       <meta
         name="og:image"
