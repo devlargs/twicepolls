@@ -83,7 +83,9 @@ const Lists = (props: any) => {
 };
 
 Lists.getInitialProps = async () => {
-  const querySnapshot = await getFirestoreCollection("polls").get();
+  const querySnapshot = await getFirestoreCollection("polls")
+    .where("approved", "==", true)
+    .get();
 
   const data = [];
   querySnapshot.forEach((doc) => {
