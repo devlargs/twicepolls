@@ -1,6 +1,10 @@
-import { Doughnut, Polar } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 
-const MembersBarChart = ({ answers: tempAnswers }: { answers: Array<any> }) => {
+const MembersDoughnutChart = ({
+  answers: tempAnswers,
+}: {
+  answers: Array<any>;
+}) => {
   const answers = tempAnswers.filter((q) => q.voteCount !== 0);
 
   const data = {
@@ -26,4 +30,4 @@ const MembersBarChart = ({ answers: tempAnswers }: { answers: Array<any> }) => {
   return <Doughnut data={data} />;
 };
 
-export default MembersBarChart;
+export default MembersDoughnutChart;
