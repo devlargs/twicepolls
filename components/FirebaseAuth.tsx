@@ -1,6 +1,7 @@
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import firebase from "firebase/app";
 import "firebase/auth";
+import { useRouter } from "next/router";
 import initFirebase from "../utils/auth/initFirebase";
 import { setUserCookie } from "../utils/auth/userCookies";
 import { mapUserData } from "../utils/auth/mapUserData";
@@ -8,10 +9,8 @@ import { mapUserData } from "../utils/auth/mapUserData";
 // Init the Firebase app.
 initFirebase();
 
-const firebaseAuthConfig = {
+const firebaseAuthConfig = (signInSuccessUrl?: string) => ({
   signInFlow: "popup",
-  // Auth providers
-  // https://github.com/firebase/firebaseui-web#configure-oauth-providers
   signInOptions: [
     {
       provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -19,7 +18,7 @@ const firebaseAuthConfig = {
     },
     firebase.auth.EmailAuthProvider.PROVIDER_ID,
   ],
-  signInSuccessUrl: "/polls",
+  signInSuccessUrl: signInSuccessUrl || "/polls",
   credentialHelper: "none",
   callbacks: {
     signInSuccessWithAuthResult: async ({ user }) => {
@@ -28,13 +27,15 @@ const firebaseAuthConfig = {
       return false;
     },
   },
-};
+});
 
 const FirebaseAuth = () => {
+  const { asPath } = useRouter();
+
   return (
     <div>
       <StyledFirebaseAuth
-        uiConfig={firebaseAuthConfig as any}
+        uiConfig={firebaseAuthConfig(asPath) as any}
         firebaseAuth={firebase.auth()}
       />
     </div>
