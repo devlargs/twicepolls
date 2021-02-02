@@ -143,7 +143,7 @@ const ListById = ({ details: serverDetails, createdBy }) => {
           <div className="mt-5" />
 
           <section aria-labelledby="notes-title">
-            <PollComments />
+            <PollComments pollId={details.id} />
           </section>
         </div>
       </div>
@@ -177,22 +177,6 @@ ListById.getInitialProps = async (ctx: NextPageContext) => {
   const userRef = await getFirestoreCollection("users")
     .doc(data[0].createdBy)
     .get();
-
-  // TODO - Check user token on server
-  // if (req && req.headers) {
-  //   const cookies = req.headers.cookie;
-
-  //   if (typeof cookies === "string") {
-  //     const cookiesJSON = serverCookie.parse(cookies);
-  //     if (cookiesJSON?.auth) {
-  //       try {
-  //         userId = JSON.parse(cookiesJSON?.auth)?.id;
-  //       } catch (ex) {
-  //         console.error("ERROR FROM LIST BY ID (getInitialProps)", ex);
-  //       }
-  //     }
-  //   }
-  // }
 
   return {
     slug: ctx.query.id,

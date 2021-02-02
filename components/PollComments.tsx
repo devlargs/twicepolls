@@ -1,8 +1,13 @@
+import { useEffect } from "react";
 import Swal from "sweetalert2";
 import { useUser } from "utils/auth/useUser";
 
-const PollComments = () => {
+const PollComments = ({ pollId }: { pollId: string }) => {
   const { user } = useUser();
+
+  useEffect(() => {
+    console.log(pollId);
+  }, []);
 
   return (
     <div className="bg-white shadow sm:rounded-lg sm:overflow-hidden">
@@ -30,65 +35,7 @@ const PollComments = () => {
                     </a>
                   </div>
                   <div className="mt-1 text-sm text-gray-700">
-                    <p>Nayeon is so gorgeous</p>
-                  </div>
-                  <div className="mt-2 text-sm space-x-2">
-                    <span className="text-gray-500 font-medium">4d ago</span>
-                    <span className="text-gray-500 font-medium">&middot;</span>
-                    <button type="button" className="text-gray-900 font-medium">
-                      Reply
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <div className="flex space-x-3">
-                <div className="flex-shrink-0">
-                  <img
-                    className="h-10 w-10 rounded-full"
-                    src="https://newsinfo.inquirer.net/files/2020/07/Front-Page62724-e1601610190160.jpg"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <div className="text-sm">
-                    <a href="#" className="font-medium text-gray-900">
-                      Harry Roque
-                    </a>
-                  </div>
-                  <div className="mt-1 text-sm text-gray-700">
-                    <p>Im not impressed</p>
-                  </div>
-                  <div className="mt-2 text-sm space-x-2">
-                    <span className="text-gray-500 font-medium">4d ago</span>
-                    <span className="text-gray-500 font-medium">&middot;</span>
-                    <button type="button" className="text-gray-900 font-medium">
-                      Reply
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <div className="flex space-x-3">
-                <div className="flex-shrink-0">
-                  <img
-                    className="h-10 w-10 rounded-full"
-                    src="https://www.manilatimes.net/wp-content/uploads/2016/10/webb20161003.jpg"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <div className="text-sm">
-                    <a href="#" className="font-medium text-gray-900">
-                      Pinky Webb
-                    </a>
-                  </div>
-                  <div className="mt-1 text-sm text-gray-700">
-                    <p>Echosera ka gurl</p>
+                    <p>asd</p>
                   </div>
                   <div className="mt-2 text-sm space-x-2">
                     <span className="text-gray-500 font-medium">4d ago</span>
@@ -119,7 +66,7 @@ const PollComments = () => {
                   name="comment"
                   rows={3}
                   className="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md"
-                  placeholder="Add a note"
+                  placeholder="Add a comment"
                 ></textarea>
               </div>
               <div className="mt-3 flex items-center justify-between">
