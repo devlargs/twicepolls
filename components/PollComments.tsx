@@ -1,13 +1,40 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import getFirestoreCollection from "utils/auth/getFirestoreCollection";
 import { useUser } from "utils/auth/useUser";
+import ThreeLineDotted from "./Loaders/ThreeLineDotted";
 
 const PollComments = ({ pollId }: { pollId: string }) => {
   const { user } = useUser();
+  const [comment, setComment] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     console.log(pollId);
   }, []);
+
+  const onSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const commentRef = getFirestoreCollection("comments").doc();
+      await commentRef.set({
+        userId: user.id,
+        comment,
+        pollId,
+      });
+      setLoading(false);
+      setComment("");
+    } catch (ex) {
+      Swal.fire(
+        "Error upon Commenting",
+        "Something went wrong. Try again later.",
+        "error"
+      );
+      setLoading(false);
+      setComment("");
+    }
+  };
 
   return (
     <div className="bg-white shadow sm:rounded-lg sm:overflow-hidden">
@@ -62,12 +89,15 @@ const PollComments = ({ pollId }: { pollId: string }) => {
               />
             </div>
             <div className="min-w-0 flex-1">
-              <form>
+              <form onSubmit={onSubmit}>
                 <div>
                   <label htmlFor="comment" className="sr-only">
                     About
                   </label>
                   <textarea
+                    required
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
                     id="comment"
                     name="comment"
                     rows={3}
@@ -77,17 +107,18 @@ const PollComments = ({ pollId }: { pollId: string }) => {
                 </div>
                 <div className="mt-3 flex items-center justify-between">
                   <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      Swal.fire(
-                        "Beta Version",
-                        "Comment section is currently in progress",
-                        "info"
-                      );
-                    }}
-                    className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-700 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    disabled={loading}
+                    type="submit"
+                    className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-700 hover:bg-blue-700 focus:outline-none "
                   >
-                    Comment
+                    {loading ? (
+                      <>
+                        &nbsp; &nbsp;
+                        <ThreeLineDotted />
+                      </>
+                    ) : (
+                      <> Comment</>
+                    )}
                   </button>
                 </div>
               </form>
@@ -101,7 +132,7 @@ const PollComments = ({ pollId }: { pollId: string }) => {
               e.preventDefault();
               Swal.fire("Beta Version", "Functionality in progress", "info");
             }}
-            className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-700 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 mb-5"
+            className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-700 hover:bg-blue-700 focus:outline-none mb-5"
           >
             Login to Comment
           </button>
