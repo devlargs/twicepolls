@@ -123,7 +123,7 @@ const Header = () => {
                       >
                         <span className="sr-only">Open user menu</span>
                         <img
-                          className="h-8 w-8 rounded-full"
+                          className="h-8 w-8 rounded-full "
                           src={user.avatar || "/images/defaultAvatar.jpg"}
                           alt=""
                         />
@@ -132,7 +132,7 @@ const Header = () => {
 
                     {menuVisibility && (
                       <div
-                        className="origin-top-right absolute right-0 mt-0 ml-5 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 z-10"
+                        className="origin-top-right absolute right-0 mt-0 ml-5 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 z-50"
                         role="menu"
                         aria-orientation="vertical"
                         aria-labelledby="user-menu"
