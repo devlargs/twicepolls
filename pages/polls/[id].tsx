@@ -86,7 +86,7 @@ const ListById = ({ details: serverDetails, createdBy }) => {
                 A Call to Action
               </a> */}
             </div>
-            <div className="absolute inset-0 h-auto z-10">
+            <div className="absolute inset-0 h-auto">
               <img
                 src={details.imageCoverUrl}
                 alt=""

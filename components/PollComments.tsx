@@ -17,7 +17,10 @@ const PollComments = ({ pollId }: { pollId: string }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const commentRef = getFirestoreCollection("comments").doc();
+      const commentRef = getFirestoreCollection("polls")
+        .doc(pollId)
+        .collection("comments")
+        .doc();
       await commentRef.set({
         userId: user.id,
         comment,
