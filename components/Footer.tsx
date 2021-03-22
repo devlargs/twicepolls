@@ -33,7 +33,8 @@ const Footer = () => {
         </div>
         <div className="mt-8 md:mt-0 md:order-1">
           <p className="text-center text-base text-white">
-            &copy; 2020 Twice Polls. All rights reserved.
+            &copy; 2020 - {new Date().getFullYear()} | Twice Polls. All rights
+            reserved.
           </p>
         </div>
       </div>
