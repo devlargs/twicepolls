@@ -82,7 +82,7 @@ const Lists = (props: any) => {
   );
 };
 
-Lists.getInitialProps = async () => {
+Lists.getStaticProps = async () => {
   const querySnapshot = await getFirestoreCollection("polls")
     .where("approved", "==", true)
     .get();
