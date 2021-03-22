@@ -5,7 +5,6 @@ import { useHover } from "react-hookedup";
 import { Mobile } from "./Nav";
 import LoginModal from "components/LoginModal";
 import { useRouter } from "next/router";
-import Swal from "sweetalert2";
 
 const Header = () => {
   const { logout, user } = useUser();
