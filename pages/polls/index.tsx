@@ -82,7 +82,7 @@ const Lists = (props: any) => {
   );
 };
 
-Lists.getInitialProps = async () => {
+export const getStaticProps = async () => {
   const querySnapshot = await getFirestoreCollection("polls")
     .where("approved", "==", true)
     .get();
@@ -98,7 +98,10 @@ Lists.getInitialProps = async () => {
   });
 
   return {
-    data,
+    props: {
+      data,
+    },
+    revalidate: 60,
   };
 };
 
