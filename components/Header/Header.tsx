@@ -33,7 +33,7 @@ const Header = () => {
         visible={modalVisibility}
         close={() => setModalVisibility(false)}
       />
-      <nav className="bg-white shadow">
+      <nav className="shadow bg-white border-gray-200 border-solid border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex">
@@ -98,6 +98,9 @@ const Header = () => {
                 </Link> */}
                 <Link href="/polls">
                   <a className={getHeaderClass("/polls")}>Polls</a>
+                </Link>
+                <Link href="/suggestions">
+                  <a className={getHeaderClass("/suggestions")}>Suggestions</a>
                 </Link>
               </div>
             </div>
