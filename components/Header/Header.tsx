@@ -144,19 +144,14 @@ const Header = () => {
                         aria-orientation="vertical"
                         aria-labelledby="user-menu"
                       >
-                        <a
-                          onClick={() => {
-                            Swal.fire(
-                              "Beta Version",
-                              "Profile Screen is currently in progress",
-                              "info"
-                            );
-                          }}
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                          role="menuitem"
-                        >
-                          Your Profile
-                        </a>
+                        <Link href={`/profile/${user.id}`}>
+                          <a
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            role="menuitem"
+                          >
+                            Your Profile
+                          </a>
+                        </Link>
                         {/* <a
                           onClick={() => {
                             Swal.fire(
