@@ -98,9 +98,9 @@ const Header = () => {
                 <Link href="/polls">
                   <a className={getHeaderClass("/polls")}>Polls</a>
                 </Link>
-                <Link href="/suggestions">
+                {/* <Link href="/suggestions">
                   <a className={getHeaderClass("/suggestions")}>Suggestions</a>
-                </Link>
+                </Link> */}
               </div>
             </div>
             <div className="flex items-center">
