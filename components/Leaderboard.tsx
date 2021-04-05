@@ -2,8 +2,6 @@ import React, { memo } from "react";
 import toOrdinal from "utils/toOrdinal";
 import Swal from "sweetalert2";
 
-const dev = process.env.NODE_ENV === "development";
-
 const Leaderboard = memo(({ answers }: any) => {
   const votes = [...answers].sort((a, b) =>
     a.voteCount < b.voteCount ? 1 : -1
@@ -20,17 +18,13 @@ const Leaderboard = memo(({ answers }: any) => {
                 <div className="flex-shrink-0">
                   <img
                     className="h-8 w-8 rounded-full"
-                    src={
-                      dev
-                        ? "/images/default.png"
-                        : `/images/members/${q.answer.toLowerCase()}.jpg`
-                    }
+                    src={`/images/members/${q.answer.toLowerCase()}.jpg`}
                     alt=""
                   />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-gray-900 truncate">
-                    {dev ? "Test" : q.answer} ({q.voteCount}{" "}
+                    {q.answer} ({q.voteCount}{" "}
                     {q.voteCount === 1 ? "Vote" : "Votes"})
                   </p>
                   <p className="text-sm text-gray-500 truncate">
