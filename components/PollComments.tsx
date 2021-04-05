@@ -47,7 +47,7 @@ const PollComments = ({ pollId }: { pollId: string }) => {
             Comments (in progress)
           </h2>
         </div>
-        <div className="px-4 py-6 sm:px-6">
+        {/* <div className="px-4 py-6 sm:px-6">
           <ul className="space-y-8">
             <li>
               <div className="flex space-x-3">
@@ -78,7 +78,7 @@ const PollComments = ({ pollId }: { pollId: string }) => {
               </div>
             </li>
           </ul>
-        </div>
+        </div> */}
       </div>
 
       {user && user?.id ? (
@@ -129,17 +129,18 @@ const PollComments = ({ pollId }: { pollId: string }) => {
           </div>
         </div>
       ) : (
-        <div className="mt-3 ml-14 flex items-center justify-between">
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              Swal.fire("Beta Version", "Functionality in progress", "info");
-            }}
-            className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-700 hover:bg-blue-700 focus:outline-none mb-5"
-          >
-            Login to Comment
-          </button>
-        </div>
+        // <div className="mt-3 ml-14 flex items-center justify-between">
+        //   <button
+        //     onClick={(e) => {
+        //       e.preventDefault();
+        //       Swal.fire("Beta Version", "Functionality in progress", "info");
+        //     }}
+        //     className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-700 hover:bg-blue-700 focus:outline-none mb-5"
+        //   >
+        //     Login to Comment
+        //   </button>
+        // </div>
+        <></>
       )}
     </div>
   );
