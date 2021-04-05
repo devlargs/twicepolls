@@ -1,13 +1,43 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import getFirestoreCollection from "utils/auth/getFirestoreCollection";
 import { useUser } from "utils/auth/useUser";
+import ThreeLineDotted from "./Loaders/ThreeLineDotted";
 
 const PollComments = ({ pollId }: { pollId: string }) => {
   const { user } = useUser();
+  const [comment, setComment] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     console.log(pollId);
   }, []);
+
+  const onSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const commentRef = getFirestoreCollection("polls")
+        .doc(pollId)
+        .collection("comments")
+        .doc();
+      await commentRef.set({
+        userId: user.id,
+        comment,
+        pollId,
+      });
+      setLoading(false);
+      setComment("");
+    } catch (ex) {
+      Swal.fire(
+        "Error upon Commenting",
+        "Something went wrong. Try again later.",
+        "error"
+      );
+      setLoading(false);
+      setComment("");
+    }
+  };
 
   return (
     <div className="bg-white shadow sm:rounded-lg sm:overflow-hidden">
@@ -17,7 +47,7 @@ const PollComments = ({ pollId }: { pollId: string }) => {
             Comments (in progress)
           </h2>
         </div>
-        <div className="px-4 py-6 sm:px-6">
+        {/* <div className="px-4 py-6 sm:px-6">
           <ul className="space-y-8">
             <li>
               <div className="flex space-x-3">
@@ -48,46 +78,70 @@ const PollComments = ({ pollId }: { pollId: string }) => {
               </div>
             </li>
           </ul>
-        </div>
+        </div> */}
       </div>
-      <div className="bg-gray-50 px-4 py-6 sm:px-6">
-        <div className="flex space-x-3">
-          <div className="flex-shrink-0">
-            <img className="h-10 w-10 rounded-full" src={user?.avatar} alt="" />
-          </div>
-          <div className="min-w-0 flex-1">
-            <form>
-              <div>
-                <label htmlFor="comment" className="sr-only">
-                  About
-                </label>
-                <textarea
-                  id="comment"
-                  name="comment"
-                  rows={3}
-                  className="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md"
-                  placeholder="Add a comment"
-                ></textarea>
-              </div>
-              <div className="mt-3 flex items-center justify-between">
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    Swal.fire(
-                      "Beta Version",
-                      "Comment section is currently in progress",
-                      "info"
-                    );
-                  }}
-                  className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-700 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                >
-                  Comment
-                </button>
-              </div>
-            </form>
+
+      {user && user?.id ? (
+        <div className="bg-gray-50 px-4 py-6 sm:px-6">
+          <div className="flex space-x-3">
+            <div className="flex-shrink-0">
+              <img
+                className="h-10 w-10 rounded-full"
+                src={user?.avatar}
+                alt=""
+              />
+            </div>
+            <div className="min-w-0 flex-1">
+              <form onSubmit={onSubmit}>
+                <div>
+                  <label htmlFor="comment" className="sr-only">
+                    About
+                  </label>
+                  <textarea
+                    required
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    id="comment"
+                    name="comment"
+                    rows={3}
+                    className="shadow-sm p-4 block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md"
+                    placeholder="Add a comment"
+                  ></textarea>
+                </div>
+                <div className="mt-3 flex items-center justify-between">
+                  <button
+                    disabled={loading}
+                    type="submit"
+                    className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-700 hover:bg-blue-700 focus:outline-none "
+                  >
+                    {loading ? (
+                      <>
+                        &nbsp; &nbsp;
+                        <ThreeLineDotted />
+                      </>
+                    ) : (
+                      <> Comment</>
+                    )}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        // <div className="mt-3 ml-14 flex items-center justify-between">
+        //   <button
+        //     onClick={(e) => {
+        //       e.preventDefault();
+        //       Swal.fire("Beta Version", "Functionality in progress", "info");
+        //     }}
+        //     className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-700 hover:bg-blue-700 focus:outline-none mb-5"
+        //   >
+        //     Login to Comment
+        //   </button>
+        // </div>
+        <></>
+      )}
     </div>
   );
 };

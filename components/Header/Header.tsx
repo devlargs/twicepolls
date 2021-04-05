@@ -5,7 +5,6 @@ import { useHover } from "react-hookedup";
 import { Mobile } from "./Nav";
 import LoginModal from "components/LoginModal";
 import { useRouter } from "next/router";
-import Swal from "sweetalert2";
 
 const Header = () => {
   const { logout, user } = useUser();
@@ -29,7 +28,11 @@ const Header = () => {
 
   return (
     <>
-      <nav className="bg-white shadow">
+      <LoginModal
+        visible={modalVisibility}
+        close={() => setModalVisibility(false)}
+      />
+      <nav className="shadow bg-white border-gray-200 border-solid border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex">
@@ -95,6 +98,9 @@ const Header = () => {
                 <Link href="/polls">
                   <a className={getHeaderClass("/polls")}>Polls</a>
                 </Link>
+                {/* <Link href="/suggestions">
+                  <a className={getHeaderClass("/suggestions")}>Suggestions</a>
+                </Link> */}
               </div>
             </div>
             <div className="flex items-center">
@@ -123,7 +129,7 @@ const Header = () => {
                       >
                         <span className="sr-only">Open user menu</span>
                         <img
-                          className="h-8 w-8 rounded-full"
+                          className="h-8 w-8 rounded-full "
                           src={user.avatar || "/images/defaultAvatar.jpg"}
                           alt=""
                         />
@@ -132,24 +138,19 @@ const Header = () => {
 
                     {menuVisibility && (
                       <div
-                        className="origin-top-right absolute right-0 mt-0 ml-5 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 z-10"
+                        className="origin-top-right absolute right-0 mt-0 ml-5 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 z-50"
                         role="menu"
                         aria-orientation="vertical"
                         aria-labelledby="user-menu"
                       >
-                        <a
-                          onClick={() => {
-                            Swal.fire(
-                              "Beta Version",
-                              "Profile Screen is currently in progress",
-                              "info"
-                            );
-                          }}
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                          role="menuitem"
-                        >
-                          Your Profile
-                        </a>
+                        <Link href={`/profile/${user.id}`}>
+                          <a
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            role="menuitem"
+                          >
+                            Your Profile
+                          </a>
+                        </Link>
                         {/* <a
                           onClick={() => {
                             Swal.fire(
@@ -183,10 +184,6 @@ const Header = () => {
 
         <Mobile />
       </nav>
-      <LoginModal
-        visible={modalVisibility}
-        close={() => setModalVisibility(false)}
-      />
     </>
   );
 };

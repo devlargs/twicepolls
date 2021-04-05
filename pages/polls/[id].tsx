@@ -67,6 +67,34 @@ const ListById = ({ details: serverDetails, createdBy }) => {
           <div className=" h-1/3 sm:h-2/3"></div>
         </div>
         <div className="relative max-w-7xl mx-auto">
+          <section className="relative py-8 px-4">
+            <div className="z-20 relative text-white container mx-auto md:h-40vh h-25vh">
+              {/* <p className="leading-normal">
+                This is a banner that can be resized to your heart’s content
+                without using a background image property.
+              </p>
+              <p className="leading-normal">
+                Integer eu massa ipsum. Quisque dui purus, congue in urna sed,
+                volutpat condimentum nisi. Ut elementum tellus quam, sit amet
+                congue ante tempus id. Phasellus ultricies enim in est posuere,
+                quis semper urna consequat.
+              </p> */}
+              {/* <a
+                href="#"
+                className="inline-block bg-blue-500 text-white no-underline hover:bg-blue-800 mt-4 p-4 rounded"
+              >
+                A Call to Action
+              </a> */}
+            </div>
+            <div className="absolute inset-0 h-auto">
+              <img
+                src={details.imageCoverUrl}
+                alt=""
+                className="h-full w-full object-fit-cover"
+              />
+            </div>
+          </section>
+
           <section aria-labelledby="applicant-information-title">
             <div className="bg-white shadow sm:rounded-lg">
               <div className="px-4 py-5 sm:px-6">
